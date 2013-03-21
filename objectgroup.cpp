@@ -11,7 +11,7 @@ objectgroup::objectgroup(matrix* transform) : object(transform) {
 void objectgroup::draw() {
 	debug("objectgroup::draw()");
 	for (std::list<object*>::iterator it = objects.begin(); it != objects.end(); it++) {
-		(*it)->draw();
+		(*it)->transformAndDraw();
 	}
 }
 

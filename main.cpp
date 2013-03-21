@@ -4,6 +4,7 @@ using namespace std;
 #include <math.h>
 #include <GL/glut.h>
 #include <iostream>
+#include <cstdio>
 
 #include "main.h"
 #include "colours.h"
@@ -26,6 +27,10 @@ float lgt_pos[] = {0.,50.,0.,1.};
 float cameraPosition[] = {0, 50, 200};
 
 float cameraAngle = 0;
+
+int currentTime = 0;
+int previousTime = 0;
+int frameCount = 0;
 
 objectgroup* rootobject;
 
@@ -79,6 +84,34 @@ void initialize(void)
 
 }
 
+void calcFPS() { //from http://mycodelog.com/2010/04/16/fps/
+  //  Increase frame count
+  frameCount++;
+
+  //  Get the number of milliseconds since glutInit called
+  //  (or first call to glutGet(GLUT ELAPSED TIME)).
+  currentTime = glutGet(GLUT_ELAPSED_TIME);
+
+  //  Calculate time passed
+  int timeInterval = currentTime - previousTime;
+
+  if(timeInterval > 1000)
+  {
+    //  calculate the number of frames per second
+    int fps = frameCount / (timeInterval / 1000.0f);
+
+    //  Set time
+    previousTime = currentTime;
+
+    //  Reset frame count
+    frameCount = 0;
+
+    char debugstr[40];
+    sprintf(debugstr,"FPS: %i",fps);
+    debug(debugstr);
+  }
+}
+
 //-------------------------------------------------------------------
 void display(void)
 {
@@ -111,11 +144,21 @@ void display(void)
   objects[2]->draw();
   glPopMatrix();*/
 
+  glPushMatrix();
+  glColor3f(0.0, 0.0, 1.0); 
   rootobject->transformAndDraw();
+  glutSolidTeapot(10);
+  glPopMatrix();
 
   glutSwapBuffers();
 
   debug("---");
+
+  #ifdef DEBUG
+
+  calcFPS();
+
+  #endif
 }
 
 /**
