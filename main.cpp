@@ -5,52 +5,32 @@ using namespace std;
 #include <GL/glut.h>
 #include <iostream>
 
+#include "colours.h"
+
 #include "object.h"
 #include "gear.h"
+#include "floor.h"
 
 #define ANIM_STEP_MSEC 10.0
+#define NELEMS(x)  (sizeof(x) / sizeof(x[0])) //from http://stackoverflow.com/questions/37538/how-do-i-determine-the-size-of-my-array-in-c
 
 GLUquadric *q = gluNewQuadric();
 
-float grey[4] = {0.2, 0.2, 0.2, 1.}; //ambient light
-float white[4] = {1.0, 1.0, 1.0, 1.};
-float black[4] = {0,0,0,0};
 
 float lgt_pos[] = {0.,50.,0.,1.};
 float cameraPosition[] = {0, 50, 200};
 
 float cameraAngle = 0;
 
-object* gear1;
-object* gear2;
-object* gear3;
-
-void floor()
-{
-  glMaterialfv(GL_FRONT, GL_SPECULAR, black);
-  glColor4f(0.5, 0.5, 0.5, 1.0);
-  glNormal3f(0.0, 1.0, 0.0);
-  glBegin(GL_QUADS);
-  for(int i = -200; i < 200; i++)
-  {
-    for(int j = -200;  j < 200; j++)
-    {
-    glVertex3i(i, 0.0, j);
-    glVertex3i(i, 0.0, j+1);
-    glVertex3f(i+1, 0.0, j+1);
-    glVertex3f(i+1, 0.0, j);
-    }
-  }
-  glEnd();
-  glMaterialfv(GL_FRONT, GL_SPECULAR, white);
-}
+object* objects[];
 
 void initialize(void) 
 {
 
-  gear1 = new gear(25, 10, 1, 1.0, 0);
-  gear2 = new gear(15, 10, -1, 25.0/15.0, 10);
-  gear3 = new gear(10, 10, -1, 25.0/10.0, 0);
+  objects = {new gear(25, 10, 1, 1.0, 0),
+            new gear(15, 5, -1, 25.0/15.0, 10),
+            new gear(10, 5, -1, 25.0/10.0, 0),
+            new floorplane() };
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_NORMALIZE);
@@ -100,23 +80,21 @@ void display(void)
 
    glLightfv(GL_LIGHT0, GL_POSITION, lgt_pos);
 
-   floor();
-
    glTranslatef(0,50,0);
   
   glPushMatrix();
   glColor3f(0.0, 0.0, 1.0); 
-  gear1->draw();
+  objects[0]->draw();
   glPopMatrix();
   glPushMatrix();
     glColor3f(1.0, 0.0, 0.0); 
     glTranslatef(gear::distX(45.0, 25,15), gear::distY(45.0,25,15), 0);
-    gear2->draw();
+    objects[1]->draw();
   glPopMatrix();
   glPushMatrix();
     glColor3f(0.0, 1.0, 0.0); 
     glTranslatef(-gear::distX(45.0, 25,10), gear::distY(45.0,25,10), 0);
-    gear3->draw();
+    objects[2]->draw();
   glPopMatrix();
 
    glutSwapBuffers();
@@ -129,9 +107,9 @@ void display(void)
  */
 void glutTimerCallback(int value) {
 
-  gear1->animate(ANIM_STEP_MSEC / 1000.0);
-  gear2->animate(ANIM_STEP_MSEC / 1000.0);
-  gear3->animate(ANIM_STEP_MSEC / 1000.0);
+  for (int i = 0; i< NELEMS(objects); i++) {
+    objects[i]->animate(ANIM_STEP_MSEC/1000.0);
+  }
 
   cameraAngle += 0.01;
 

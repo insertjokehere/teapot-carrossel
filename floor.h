@@ -1,6 +1,6 @@
 #include "object.h"
 
-class floor: public object {
+class floorplane: public object {
 private:
 public:
 	virtual void draw();
