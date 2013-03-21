@@ -1,3 +1,6 @@
+#ifndef H_FURNACE
+#define H_FURNACE
+
 #include "object.h"
 
 class furnace: public object {
@@ -8,3 +11,5 @@ public:
 	virtual void animate(float deltaT);
 	virtual void initilize();
 };
+
+#endif

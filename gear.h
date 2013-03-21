@@ -1,3 +1,6 @@
+#ifndef H_GEAR
+#define H_GEAR
+
 const float PI = 3.141593f;
 const float SPACING = 2.5;
 
@@ -18,3 +21,5 @@ public:
 	static float distX(float theta, int gear1, int gear2);
 	static float distY(float theta, int gear1, int gear2);
 };
+
+#endif

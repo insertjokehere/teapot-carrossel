@@ -1,3 +1,6 @@
+#ifndef H_OBJECT
+#define H_OBJECT
+
 #define NO_LIGHTS_AVALIBLE -1
 #define NELEMS(x)  (sizeof(x) / sizeof(x[0])) //from http://stackoverflow.com/questions/37538/how-do-i-determine-the-size-of-my-array-in-c
 
@@ -14,3 +17,5 @@ public:
 
 	static LIGHTID reserveLight();
 };
+
+#endif

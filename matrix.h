@@ -1,3 +1,5 @@
+#ifndef H_MATRIX
+#define H_MATRIX
 
 #define IDENTITY_MATRIX {1,0,0,0,  0,1,0,0,  0,0,1,0,  0,0,0,1}
 
@@ -14,3 +16,5 @@ public:
 
 	static matrix getTranslationMatrix(float x, float y, float z);
 };
+
+#endif
