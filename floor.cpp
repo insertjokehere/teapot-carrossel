@@ -1,10 +1,7 @@
 #include "floor.h"
 
-#include <GL/glut.h>
-
-#include "colours.h"
-
 void floorplane::draw() {
+	debug("floorplane::draw()");
 	glMaterialfv(GL_FRONT, GL_SPECULAR, black);
 	glColor4f(0.5, 0.5, 0.5, 1.0);
 	glNormal3f(0.0, 1.0, 0.0);

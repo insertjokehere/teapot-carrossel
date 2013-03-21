@@ -5,6 +5,7 @@ using namespace std;
 #include <GL/glut.h>
 #include <iostream>
 
+#include "main.h"
 #include "colours.h"
 #include "object.h"
 #include "objectgroup.h"
@@ -12,8 +13,11 @@ using namespace std;
 #include "gear.h"
 #include "floor.h"
 
-#define ANIM_STEP_MSEC 10.0
-#define NELEMS(x)  (sizeof(x) / sizeof(x[0])) //from http://stackoverflow.com/questions/37538/how-do-i-determine-the-size-of-my-array-in-c
+void debug(std::string message) {
+  #ifdef DEBUG
+  cout << message << endl;
+  #endif
+}
 
 GLUquadric *q = gluNewQuadric();
 
@@ -79,6 +83,8 @@ void initialize(void)
 void display(void)
 {
 
+  debug("display()--");
+
   glClear (GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
@@ -108,6 +114,8 @@ void display(void)
   rootobject->transformAndDraw();
 
   glutSwapBuffers();
+
+  debug("---");
 }
 
 /**

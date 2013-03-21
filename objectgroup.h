@@ -1,8 +1,10 @@
 #ifndef H_OBJECTGROUP
 #define H_OBJECTGROUP
 
-#include <list>
 #include "object.h"
+#include "main.h"
+
+#include <list>
 
 class objectgroup: public object {
 private:

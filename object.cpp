@@ -1,7 +1,5 @@
 #include "object.h"
 
-#include <GL/glut.h>
-
 int object::numLights = 0;
 LIGHTID object::lights[] = {GL_LIGHT1, GL_LIGHT2, GL_LIGHT3, GL_LIGHT4, GL_LIGHT5, GL_LIGHT6, GL_LIGHT7}; //GL_LIGHT0 is reserved for global illumination
 
@@ -29,6 +27,7 @@ object::object(matrix* transform) {
 }
 
 void object::transformAndDraw() {
+	debug("object::transformAndDraw()");
 	glPushMatrix();
 	glLoadMatrixf(transformationMatrix->getInnerMatrix());
 	draw();

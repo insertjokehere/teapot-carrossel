@@ -5,6 +5,9 @@
 #define NELEMS(x)  (sizeof(x) / sizeof(x[0])) //from http://stackoverflow.com/questions/37538/how-do-i-determine-the-size-of-my-array-in-c
 
 #include "matrix.h"
+#include "main.h"
+
+#include <GL/glut.h>
 
 typedef unsigned int LIGHTID;
 

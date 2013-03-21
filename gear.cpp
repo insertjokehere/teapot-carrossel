@@ -1,8 +1,5 @@
 #include "gear.h"
 
-#include <GL/glut.h>
-#include <math.h>
-
 //--Public--
 
 gear::gear(int teeth, float thickness, int rotateDir, float rotateSpeed, float rotateOffset, matrix* transform): object(transform) {
@@ -22,6 +19,7 @@ void gear::construct(int teeth, float thickness, int rotateDir, float rotateSpee
 }
 
 void gear::draw(){
+    debug("gear::draw()");
     float radius = getRadius(numTeeth);
     float angInc1 = 0.5/radius;
     float angInc2 = 0.8/radius;
@@ -56,6 +54,7 @@ void gear::draw(){
 }
 
 void gear::animate(float deltaT) {
+    debug("gear::animate()");
 	position += (speed / deltaT) * direction;
 }
 

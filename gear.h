@@ -3,6 +3,10 @@
 
 #include "object.h"
 #include "matrix.h"
+#include "main.h"
+
+#include <GL/glut.h>
+#include <math.h>
 
 const float PI = 3.141593f;
 const float SPACING = 2.5;
