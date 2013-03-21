@@ -6,13 +6,13 @@
 
 class objectgroup: public object {
 private:
-std::list<object> objects;
+std::list<object*> objects;
 public:
 	objectgroup();
 	virtual void draw();
 	virtual void initilize();
 	virtual void animate(float deltaT);
-	void add(object other);
+	void add(object* other);
 };
 
 #endif
