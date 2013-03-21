@@ -15,7 +15,7 @@ using namespace std;
 #include "floor.h"
 
 void debug(std::string message) {
-  #ifdef DEBUG
+  #ifdef DEBUG_TRACE
   cout << message << endl;
   #endif
 }
@@ -106,9 +106,7 @@ void calcFPS() { //from http://mycodelog.com/2010/04/16/fps/
     //  Reset frame count
     frameCount = 0;
 
-    char debugstr[40];
-    sprintf(debugstr,"FPS: %i",fps);
-    debug(debugstr);
+    cout << "FPS: " << fps << endl;
   }
 }
 
@@ -154,7 +152,7 @@ void display(void)
 
   debug("---");
 
-  #ifdef DEBUG
+  #ifdef DEBUG_FPS
 
   calcFPS();
 
