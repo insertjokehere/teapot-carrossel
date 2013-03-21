@@ -22,15 +22,15 @@ float cameraPosition[] = {0, 50, 200};
 
 float cameraAngle = 0;
 
-object* objects[];
+object* objects[4];
 
 void initialize(void) 
 {
 
-  objects = {new gear(25, 10, 1, 1.0, 0),
-            new gear(15, 5, -1, 25.0/15.0, 10),
-            new gear(10, 5, -1, 25.0/10.0, 0),
-            new floorplane() };
+  objects[0] = new gear(25, 10, 1, 1.0, 0);
+  objects[1] = new gear(15, 5, -1, 25.0/15.0, 10);
+  objects[2] = new gear(10, 5, -1, 25.0/10.0, 0);
+  objects[3] = new floorplane();
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_NORMALIZE);
@@ -107,7 +107,7 @@ void display(void)
  */
 void glutTimerCallback(int value) {
 
-  for (int i = 0; i< NELEMS(objects); i++) {
+  for (unsigned int i = 0; i< NELEMS(objects); i++) {
     objects[i]->animate(ANIM_STEP_MSEC/1000.0);
   }
 

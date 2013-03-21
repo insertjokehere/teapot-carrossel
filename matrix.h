@@ -6,15 +6,15 @@
 
 class matrix {
 private:
-	float* innerMatrix[16];
+	float* innerMatrix;
 public:
 	matrix(float mxDef[16]);
 
-	const matrix operator*(const matrix& other);
+	matrix* operator*(matrix* other);
 	
 	float* getInnerMatrix();
 
-	static matrix getTranslationMatrix(float x, float y, float z);
+	static matrix* getTranslationMatrix(float x, float y, float z);
 };
 
 #endif

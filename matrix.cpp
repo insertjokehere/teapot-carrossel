@@ -4,11 +4,11 @@ matrix::matrix(float mxDef[16]) {
 	innerMatrix = mxDef;
 }
 
-float[16]* matrix::getInnerMatrix() {
+float* matrix::getInnerMatrix() {
 	return innerMatrix;
 }
 
-const matrix matrix::operator*(const matrix other&) {
+matrix* matrix::operator*(matrix* other) {
 	float newMatrix[16] = { 0,0,0,0,
 							0,0,0,0,
 							0,0,0,0,
@@ -23,7 +23,7 @@ const matrix matrix::operator*(const matrix other&) {
 	return new matrix(newMatrix);
 }
 
-matrix matrix::getTranslationMatrix(float x, float y, float z) {
+matrix* matrix::getTranslationMatrix(float x, float y, float z) {
 	float newMatrix[16] = {1,0,0,x,
 					   	   0,1,0,y,
 					       0,0,1,z,
