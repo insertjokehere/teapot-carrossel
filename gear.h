@@ -10,7 +10,7 @@ private:
 	float thickness;
 
 	static float getRadius(int numTeeth);
-	void draw2D();
+	void draw2D(float depth);
 public:
 	gear(int teeth, float thickness, int rotateDir, float rotateSpeed, float rotateOffset);
 	virtual void draw();

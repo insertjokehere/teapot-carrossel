@@ -16,7 +16,37 @@ gear::gear(int teeth, float thickness, int rotateDir, float rotateSpeed, float r
 
 
 void gear::draw(){
-	draw2D();
+    float radius = getRadius(numTeeth);
+    float angInc1 = 0.5/radius;
+    float angInc2 = 0.8/radius;
+
+    float angle = 0.0;
+
+    glRotatef(position, 0, 0, 1);
+
+    glBegin(GL_TRIANGLE_STRIP);
+    for(int i = 0; i < numTeeth; i++)
+    {
+        glVertex3f(radius*cos(angle), radius*sin(angle),0.0);
+        glVertex3f(radius*cos(angle), radius*sin(angle),thickness);
+        angle += angInc1;
+        glVertex3f((radius+2.0)*cos(angle), (radius+2.0)*sin(angle),0.0);
+        glVertex3f((radius+2.0)*cos(angle), (radius+2.0)*sin(angle),thickness);
+        angle += angInc2;
+        glVertex3f((radius+2.0)*cos(angle), (radius+2.0)*sin(angle),0.0);
+        glVertex3f((radius+2.0)*cos(angle), (radius+2.0)*sin(angle),thickness);
+        angle += angInc1;
+        glVertex3f(radius*cos(angle), radius*sin(angle),0.0);
+        glVertex3f(radius*cos(angle), radius*sin(angle),thickness);
+        angle += 2.0*angInc1;
+    }
+    glEnd();
+
+
+    glNormal3f(0,1,0);
+	draw2D(0.0);
+    glNormal3f(0,-1,0);
+    draw2D(thickness);
 }
 
 void gear::animate(float deltaT) {
@@ -39,7 +69,7 @@ float gear::getRadius(int numTeeth){
 }
 
 
-void gear::draw2D() {
+void gear::draw2D(float depth) {
 	float radius = getRadius(numTeeth);
     float angInc1 = 0.5/radius;
     float angInc2 = 0.8/radius;
@@ -49,18 +79,18 @@ void gear::draw2D() {
     glRotatef(position, 0, 0, 1);
 
     glBegin(GL_TRIANGLE_FAN);
-    glVertex2f(0.0, 0.0);
+    glVertex3f(0.0, 0.0, depth);
     for(int i = 0; i < numTeeth; i++)
     {
-        glVertex2f(radius*cos(angle), radius*sin(angle));
+        glVertex3f(radius*cos(angle), radius*sin(angle),depth);
         angle += angInc1;
-        glVertex2f((radius+2.0)*cos(angle), (radius+2.0)*sin(angle));
+        glVertex3f((radius+2.0)*cos(angle), (radius+2.0)*sin(angle),depth);
         angle += angInc2;
-        glVertex2f((radius+2.0)*cos(angle), (radius+2.0)*sin(angle));
+        glVertex3f((radius+2.0)*cos(angle), (radius+2.0)*sin(angle),depth);
         angle += angInc1;
-        glVertex2f(radius*cos(angle), radius*sin(angle));
+        glVertex3f(radius*cos(angle), radius*sin(angle),depth);
         angle += 2.0*angInc1;
     }
-    glVertex2f(radius, 0.0);
+    glVertex3f(radius, 0.0, depth);
     glEnd();
 }
