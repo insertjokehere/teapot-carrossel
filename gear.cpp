@@ -6,14 +6,40 @@
 
 //--Public--
 
-gear::gear(int teeth, int rotateDir, float rotateSpeed, float rotateOffset) {
+gear::gear(int teeth, float thickness, int rotateDir, float rotateSpeed, float rotateOffset) {
 	numTeeth = teeth;
 	speed = rotateSpeed;
 	position = rotateOffset;
 	direction = rotateDir;
+	this->thickness = thickness;
 }
 
-void gear::draw() {
+
+void gear::draw(){
+	draw2D();
+}
+
+void gear::animate(float deltaT) {
+	position += (speed / deltaT) * direction;
+}
+
+float gear::distY(float theta, int gear1, int gear2) {
+  float t = (theta/360.0) * (2 * PI); //convert to radians
+  return sin(t) * float(getRadius(gear1) + getRadius(gear2) + SPACING);
+}
+
+float gear::distX(float theta, int gear1, int gear2) {
+  float t = (theta/360.0) * (2 * PI); //convert to radians
+  return cos(t) * float(getRadius(gear1) + getRadius(gear2) + SPACING);
+}
+
+//--Private--
+float gear::getRadius(int numTeeth){
+    return 1.4*numTeeth/PI;
+}
+
+
+void gear::draw2D() {
 	float radius = getRadius(numTeeth);
     float angInc1 = 0.5/radius;
     float angInc2 = 0.8/radius;
@@ -37,23 +63,4 @@ void gear::draw() {
     }
     glVertex2f(radius, 0.0);
     glEnd();
-}
-
-void gear::animate(float deltaT) {
-	position += (speed / deltaT) * direction;
-}
-
-float gear::distY(float theta, int gear1, int gear2) {
-  float t = (theta/360.0) * (2 * PI); //convert to radians
-  return sin(t) * float(getRadius(gear1) + getRadius(gear2) + SPACING);
-}
-
-float gear::distX(float theta, int gear1, int gear2) {
-  float t = (theta/360.0) * (2 * PI); //convert to radians
-  return cos(t) * float(getRadius(gear1) + getRadius(gear2) + SPACING);
-}
-
-//--Private--
-float gear::getRadius(int numTeeth){
-    return 1.4*numTeeth/PI;
 }

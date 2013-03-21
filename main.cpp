@@ -15,18 +15,42 @@ GLUquadric *q = gluNewQuadric();
 float grey[4] = {0.2, 0.2, 0.2, 1.}; //ambient light
 float white[4] = {1.0, 1.0, 1.0, 1.};
 float black[4] = {0,0,0,0};
-float rot[] = {0,-10.5,-21.0,-31.5};
+
+float lgt_pos[] = {0.,50.,0.,1.};
+float cameraPosition[] = {0, 50, 200};
+
+float cameraAngle = 0;
 
 object* gear1;
 object* gear2;
 object* gear3;
 
+void floor()
+{
+  glMaterialfv(GL_FRONT, GL_SPECULAR, black);
+  glColor4f(0.5, 0.5, 0.5, 1.0);
+  glNormal3f(0.0, 1.0, 0.0);
+  glBegin(GL_QUADS);
+  for(int i = -200; i < 200; i++)
+  {
+    for(int j = -200;  j < 200; j++)
+    {
+    glVertex3i(i, 0.0, j);
+    glVertex3i(i, 0.0, j+1);
+    glVertex3f(i+1, 0.0, j+1);
+    glVertex3f(i+1, 0.0, j);
+    }
+  }
+  glEnd();
+  glMaterialfv(GL_FRONT, GL_SPECULAR, white);
+}
+
 void initialize(void) 
 {
 
-  gear1 = new gear(25, 1, 1.0, 0);
-  gear2 = new gear(15, -1, 25.0/15.0, 10);
-  gear3 = new gear(10, -1, 25.0/10.0, 0);
+  gear1 = new gear(25, 10, 1, 1.0, 0);
+  gear2 = new gear(15, 10, -1, 25.0/15.0, 10);
+  gear3 = new gear(10, 10, -1, 25.0/10.0, 0);
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_NORMALIZE);
@@ -71,17 +95,17 @@ void display(void)
    glMatrixMode(GL_MODELVIEW);
    glLoadIdentity();
 
-   gluLookAt (0, 50, 200, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+   gluLookAt (cameraPosition[0], cameraPosition[1], cameraPosition[2], 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
-   float lgt_pos[] = {0.,50.,0.,1.};
-   float spot_pos[] = {-10.,14.,0.,1.};
-   float spot_look[] = {-4.,-4.,0.,1.};
 
    glLightfv(GL_LIGHT0, GL_POSITION, lgt_pos);
 
+   floor();
 
-  glColor3f(0.0, 0.0, 1.0); 
+   glTranslatef(0,50,0);
+  
   glPushMatrix();
+  glColor3f(0.0, 0.0, 1.0); 
   gear1->draw();
   glPopMatrix();
   glPushMatrix();
@@ -108,6 +132,11 @@ void glutTimerCallback(int value) {
   gear1->animate(ANIM_STEP_MSEC / 1000.0);
   gear2->animate(ANIM_STEP_MSEC / 1000.0);
   gear3->animate(ANIM_STEP_MSEC / 1000.0);
+
+  cameraAngle += 0.01;
+
+  cameraPosition[0] = 200 * sin(cameraAngle);
+  cameraPosition[2] = 200 * cos(cameraAngle);
 
   glutPostRedisplay();
   glutTimerFunc(ANIM_STEP_MSEC, glutTimerCallback, 0);
