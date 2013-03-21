@@ -10,6 +10,7 @@ using namespace std;
 #include "colours.h"
 #include "object.h"
 #include "objectgroup.h"
+#include "transforms.h"
 
 #include "gear.h"
 #include "floor.h"
@@ -39,10 +40,10 @@ void initialize(void)
 
   rootobject = new objectgroup();
 
-  objectgroup* gears = new objectgroup(matrix::getTranslationMatrix(0,50,0));
+  objectgroup* gears = new objectgroup(new translate(0,50,0));
   gears->add(new gear(25, 10, 1, 1.0, 0));
-  gears->add(new gear(15, 5, -1, 25.0/15.0, 10, matrix::getTranslationMatrix(gear::distX(45.0, 25,15), gear::distY(45.0,25,15), 0)));
-  gears->add(new gear(10, 5, -1, 25.0/10.0, 0, matrix::getTranslationMatrix(-gear::distX(45.0, 25,10), gear::distY(45.0,25,10), 0)));
+  gears->add(new gear(15, 5, -1, 25.0/15.0, 10, new translate(gear::distX(45.0, 25,15), gear::distY(45.0,25,15), 0)));
+  gears->add(new gear(10, 5, -1, 25.0/10.0, 0, new translate(-gear::distX(45.0, 25,10), gear::distY(45.0,25,10), 0)));
 
   rootobject->add(gears);
   rootobject->add(new floorplane());
@@ -145,7 +146,7 @@ void display(void)
   glPushMatrix();
   glColor3f(0.0, 0.0, 1.0); 
   rootobject->transformAndDraw();
-  glutSolidTeapot(10);
+  //glutSolidTeapot(10);
   glPopMatrix();
 
   glutSwapBuffers();

@@ -2,8 +2,8 @@
 #define H_GEAR
 
 #include "object.h"
-#include "matrix.h"
 #include "main.h"
+#include "transforms.h"
 
 #include <GL/glut.h>
 #include <math.h>
@@ -26,7 +26,7 @@ private:
 	
 public:
 	gear(int teeth, float thickness, int rotateDir, float rotateSpeed, float rotateOffset);
-	gear(int teeth, float thickness, int rotateDir, float rotateSpeed, float rotateOffset, matrix* transform);
+	gear(int teeth, float thickness, int rotateDir, float rotateSpeed, float rotateOffset, transform* constTransform);
 	virtual void draw();
 	virtual void animate(float deltaT);
 	static float distX(float theta, int gear1, int gear2);

@@ -2,7 +2,7 @@
 
 //--Public--
 
-gear::gear(int teeth, float thickness, int rotateDir, float rotateSpeed, float rotateOffset, matrix* transform): object(transform) {
+gear::gear(int teeth, float thickness, int rotateDir, float rotateSpeed, float rotateOffset, transform* constTransform): object(constTransform) {
 	construct(teeth, thickness, rotateDir, rotateSpeed, rotateOffset);
 }
 

@@ -3,8 +3,8 @@
 
 #define NO_LIGHTS_AVALIBLE -1
 
-#include "matrix.h"
 #include "main.h"
+#include "transforms.h"
 
 #include <GL/glut.h>
 
@@ -15,11 +15,11 @@ private:
 	static int numLights;
 	static LIGHTID lights[];
 
-	void construct(matrix* transform);
+	void construct(transform* constTransform);
 protected:
-	matrix* transformationMatrix;
+	transform* constTransform;
 public:
-	object(matrix* transform);
+	object(transform* constTransform);
 	object();
 
 	virtual void initilize() {};

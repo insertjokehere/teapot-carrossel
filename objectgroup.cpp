@@ -4,7 +4,7 @@ objectgroup::objectgroup() {
 	objects = std::list<object*>();
 }
 
-objectgroup::objectgroup(matrix* transform) : object(transform) {
+objectgroup::objectgroup(transform* constTransform) : object(constTransform) {
 	objects = std::list<object*>();
 }
 
