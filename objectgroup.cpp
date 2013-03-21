@@ -4,6 +4,10 @@ objectgroup::objectgroup() {
 	objects = std::list<object*>();
 }
 
+objectgroup::objectgroup(matrix* transform) : object(transform) {
+	objects = std::list<object*>();
+}
+
 void objectgroup::draw() {
 	for (std::list<object*>::iterator it = objects.begin(); it != objects.end(); it++) {
 		(*it)->draw();

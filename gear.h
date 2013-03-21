@@ -16,8 +16,12 @@ private:
 	float thickness;
 
 	static float getRadius(int numTeeth);
+
 	void draw2D(float depth);
+	void construct(int teeth, float thickness, int rotateDir, float rotateSpeed, float rotateOffset);
+	
 public:
+	gear(int teeth, float thickness, int rotateDir, float rotateSpeed, float rotateOffset);
 	gear(int teeth, float thickness, int rotateDir, float rotateSpeed, float rotateOffset, matrix* transform);
 	virtual void draw();
 	virtual void animate(float deltaT);

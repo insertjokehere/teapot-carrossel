@@ -9,6 +9,7 @@ private:
 std::list<object*> objects;
 public:
 	objectgroup();
+	objectgroup(matrix* transform);
 	virtual void draw();
 	virtual void initilize();
 	virtual void animate(float deltaT);

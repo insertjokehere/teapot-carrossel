@@ -6,13 +6,20 @@
 //--Public--
 
 gear::gear(int teeth, float thickness, int rotateDir, float rotateSpeed, float rotateOffset, matrix* transform): object(transform) {
-	numTeeth = teeth;
-	speed = rotateSpeed;
-	position = rotateOffset;
-	direction = rotateDir;
-	this->thickness = thickness;
+	construct(teeth, thickness, rotateDir, rotateSpeed, rotateOffset);
 }
 
+gear::gear(int teeth, float thickness, int rotateDir, float rotateSpeed, float rotateOffset) {
+    construct(teeth, thickness, rotateDir, rotateSpeed, rotateOffset);   
+}
+
+void gear::construct(int teeth, float thickness, int rotateDir, float rotateSpeed, float rotateOffset) {
+    numTeeth = teeth;
+    speed = rotateSpeed;
+    position = rotateOffset;
+    direction = rotateDir;
+    this->thickness = thickness;
+}
 
 void gear::draw(){
     float radius = getRadius(numTeeth);
