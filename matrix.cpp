@@ -1,5 +1,10 @@
 #include "matrix.h"
 
+matrix::matrix() {
+	float identity[16] = IDENTITY_MATRIX;
+	innerMatrix = identity;
+}
+
 matrix::matrix(float mxDef[16]) {
 	innerMatrix = mxDef;
 }
@@ -28,6 +33,12 @@ matrix* matrix::getTranslationMatrix(float x, float y, float z) {
 					   	   0,1,0,y,
 					       0,0,1,z,
 					       0,0,0,1};
+
+	return new matrix(newMatrix);
+}
+
+matrix* matrix::getIdentityMatrix() {
+	float newMatrix[16] = IDENTITY_MATRIX;
 
 	return new matrix(newMatrix);
 }

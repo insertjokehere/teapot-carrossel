@@ -8,11 +8,14 @@ class matrix {
 private:
 	float* innerMatrix;
 public:
+	matrix();
 	matrix(float mxDef[16]);
 
 	matrix* operator*(matrix* other);
 	
 	float* getInnerMatrix();
+
+	static matrix* getIdentityMatrix();
 
 	static matrix* getTranslationMatrix(float x, float y, float z);
 };

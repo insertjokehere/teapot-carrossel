@@ -1,4 +1,3 @@
-#include "object.h"
 #include "gear.h"
 
 #include <GL/glut.h>
@@ -6,7 +5,7 @@
 
 //--Public--
 
-gear::gear(int teeth, float thickness, int rotateDir, float rotateSpeed, float rotateOffset) {
+gear::gear(int teeth, float thickness, int rotateDir, float rotateSpeed, float rotateOffset, matrix* transform): object(transform) {
 	numTeeth = teeth;
 	speed = rotateSpeed;
 	position = rotateOffset;

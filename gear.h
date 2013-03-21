@@ -1,6 +1,9 @@
 #ifndef H_GEAR
 #define H_GEAR
 
+#include "object.h"
+#include "matrix.h"
+
 const float PI = 3.141593f;
 const float SPACING = 2.5;
 
@@ -15,7 +18,7 @@ private:
 	static float getRadius(int numTeeth);
 	void draw2D(float depth);
 public:
-	gear(int teeth, float thickness, int rotateDir, float rotateSpeed, float rotateOffset);
+	gear(int teeth, float thickness, int rotateDir, float rotateSpeed, float rotateOffset, matrix* transform);
 	virtual void draw();
 	virtual void animate(float deltaT);
 	static float distX(float theta, int gear1, int gear2);

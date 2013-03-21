@@ -30,9 +30,9 @@ void initialize(void)
 
   rootobject = new objectgroup();
 
-  rootobject->add(new gear(25, 10, 1, 1.0, 0));
-  rootobject->add(new gear(15, 5, -1, 25.0/15.0, 10));
-  rootobject->add(new gear(10, 5, -1, 25.0/10.0, 0));
+  rootobject->add(new gear(25, 10, 1, 1.0, 0, matrix::getTranslationMatrix(0,50,0)));
+  rootobject->add(new gear(15, 5, -1, 25.0/15.0, 10, matrix::getTranslationMatrix(0,50,0)));
+  rootobject->add(new gear(10, 5, -1, 25.0/10.0, 0, matrix::getTranslationMatrix(0,50,0)));
   rootobject->add(new floorplane());
 
 	glEnable(GL_DEPTH_TEST);

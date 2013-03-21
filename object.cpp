@@ -15,3 +15,22 @@ LIGHTID object::reserveLight()  {
 		return light;
 	}
 }
+
+void object::construct(matrix* transform) {
+	transformationMatrix = transform;
+}
+
+object::object() {
+	construct(matrix::getIdentityMatrix());
+}
+
+object::object(matrix* transform) {
+	construct(transform);
+}
+
+void object::transformAndDraw() {
+	glPushMatrix();
+	glLoadMatrixf(transformationMatrix->getInnerMatrix());
+	draw();
+	glPopMatrix();
+}
