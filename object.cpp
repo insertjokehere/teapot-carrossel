@@ -14,16 +14,15 @@ LIGHTID object::reserveLight()  {
 	}
 }
 
-void object::construct(transform* constTransform) {
+object::object(transform* constTransform, animation* animationProvider) {
 	this->constTransform = constTransform;
+	this->animationProvider = animationProvider;
 }
 
-object::object() {
-	construct(NULL);
-}
-
-object::object(transform* constTransform) {
-	construct(constTransform);
+void object::animate(int deltaTMs) {
+	if (animationProvider != NULL) {
+		animationProvider->calcAnim(deltaTMs);
+	}
 }
 
 void object::transformAndDraw() {
@@ -31,6 +30,12 @@ void object::transformAndDraw() {
 	glPushMatrix();
 	if (constTransform != NULL) {
 		constTransform->apply();
+	}
+	if (animationProvider != NULL) {
+		transform* animTransform = animationProvider->getAnimationTransform();
+		if (animTransform != NULL) {
+			animTransform->apply();
+		}
 	}
 	draw();
 	glPopMatrix();

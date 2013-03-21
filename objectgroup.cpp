@@ -1,10 +1,6 @@
 #include "objectgroup.h"
 
-objectgroup::objectgroup() {
-	objects = std::list<object*>();
-}
-
-objectgroup::objectgroup(transform* constTransform) : object(constTransform) {
+objectgroup::objectgroup(transform* constTransform, animation* animationProvider) : object(constTransform, animationProvider) {
 	objects = std::list<object*>();
 }
 

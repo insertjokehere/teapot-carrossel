@@ -11,6 +11,7 @@ using namespace std;
 #include "object.h"
 #include "objectgroup.h"
 #include "transforms.h"
+#include "animation.h"
 
 #include "gear.h"
 #include "floor.h"
@@ -38,12 +39,12 @@ objectgroup* rootobject;
 void initialize(void) 
 {
 
-  rootobject = new objectgroup();
+  rootobject = new objectgroup(NULL, NULL);
 
-  objectgroup* gears = new objectgroup(new translate(0,50,0));
-  gears->add(new gear(25, 10, 1, 1.0, 0));
-  gears->add(new gear(15, 5, -1, 25.0/15.0, 10, new translate(gear::distX(45.0, 25,15), gear::distY(45.0,25,15), 0)));
-  gears->add(new gear(10, 5, -1, 25.0/10.0, 0, new translate(-gear::distX(45.0, 25,10), gear::distY(45.0,25,10), 0)));
+  objectgroup* gears = new objectgroup(new translate(0,50,0), NULL);
+  gears->add(new gear(25, 10, NULL, new rotateAnimation(1, 10.0, rotateAnimation::AXIS_Y, 0.0)));
+  gears->add(new gear(15, 5, new translate(gear::distX(45.0, 25,15), gear::distY(45.0,25,15), 0), new rotateAnimation(-1, 25.0/15.0 * 10, rotateAnimation::AXIS_Y, 10)));
+  gears->add(new gear(10, 5,  new translate(-gear::distX(45.0, 25,10), gear::distY(45.0,25,10), 0), new rotateAnimation(-1, 25.0, rotateAnimation::AXIS_Y, 0)));
 
   rootobject->add(gears);
   rootobject->add(new floorplane());

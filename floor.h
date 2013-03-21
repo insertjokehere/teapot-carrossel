@@ -10,6 +10,7 @@
 class floorplane: public object {
 private:
 public:
+	floorplane() : object(NULL, NULL) {};
 	virtual void draw();
 };
 

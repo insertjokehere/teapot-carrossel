@@ -2,19 +2,8 @@
 
 //--Public--
 
-gear::gear(int teeth, float thickness, int rotateDir, float rotateSpeed, float rotateOffset, transform* constTransform): object(constTransform) {
-	construct(teeth, thickness, rotateDir, rotateSpeed, rotateOffset);
-}
-
-gear::gear(int teeth, float thickness, int rotateDir, float rotateSpeed, float rotateOffset) {
-    construct(teeth, thickness, rotateDir, rotateSpeed, rotateOffset);   
-}
-
-void gear::construct(int teeth, float thickness, int rotateDir, float rotateSpeed, float rotateOffset) {
+gear::gear(int teeth, float thickness, transform* constTransform, animation* animationProvider): object(constTransform, animationProvider) {
     numTeeth = teeth;
-    speed = rotateSpeed;
-    position = rotateOffset;
-    direction = rotateDir;
     this->thickness = thickness;
 }
 
@@ -25,8 +14,6 @@ void gear::draw(){
     float angInc2 = 0.8/radius;
 
     float angle = 0.0;
-
-    glRotatef(position, 0, 0, 1);
 
     glBegin(GL_TRIANGLE_STRIP);
     for(int i = 0; i < numTeeth; i++)
@@ -53,10 +40,6 @@ void gear::draw(){
     draw2D(thickness);
 }
 
-void gear::animate(float deltaT) {
-    debug("gear::animate()");
-	position += (speed / deltaT) * direction;
-}
 
 float gear::distY(float theta, int gear1, int gear2) {
   float t = (theta/360.0) * (2 * PI); //convert to radians
@@ -80,8 +63,6 @@ void gear::draw2D(float depth) {
     float angInc2 = 0.8/radius;
 
     float angle = 0.0;
-
-    glRotatef(position, 0, 0, 1);
 
     glBegin(GL_TRIANGLE_FAN);
     glVertex3f(0.0, 0.0, depth);

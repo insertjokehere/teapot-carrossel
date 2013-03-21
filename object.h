@@ -5,6 +5,7 @@
 
 #include "main.h"
 #include "transforms.h"
+#include "animation.h"
 
 #include <GL/glut.h>
 
@@ -15,16 +16,16 @@ private:
 	static int numLights;
 	static LIGHTID lights[];
 
-	void construct(transform* constTransform);
 protected:
 	transform* constTransform;
+	animation* animationProvider;
 public:
-	object(transform* constTransform);
-	object();
+	object(transform* constTransform, animation* animationProvider);
 
 	virtual void initilize() {};
 	virtual void draw() {};
-	virtual void animate(float deltaT) {};
+	
+	void animate(int deltaT);
 
 	void transformAndDraw();
 

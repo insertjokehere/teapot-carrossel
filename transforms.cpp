@@ -23,3 +23,13 @@ translate::translate(float x, float y, float z) {
 void translate::apply() {
 	glTranslatef(x, y, z);
 }
+
+rotate::rotate(float theta, int x, int y, int z) {
+	this->theta = theta;
+	this->x = x;
+	this->y = y;
+	this->z = z;
+}
+void rotate::apply() {
+	glRotatef(theta, x, y, z);
+}

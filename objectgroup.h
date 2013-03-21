@@ -10,8 +10,7 @@ class objectgroup: public object {
 private:
 std::list<object*> objects;
 public:
-	objectgroup();
-	objectgroup(transform* transform);
+	objectgroup(transform* transform, animation* animationProvider);
 	virtual void draw();
 	virtual void initilize();
 	virtual void animate(float deltaT);

@@ -21,9 +21,22 @@ public:
 
 class translate: public transform {
 private:
-	float x, y, z;
+	float x;
+	float y;
+	float z;
 public:
 	translate(float x, float y, float z);
+	virtual void apply();
+};
+
+class rotate: public transform {
+private:
+	float theta;
+	int x;
+	int y;
+	int z;
+public:
+	rotate(float theta, int x, int y, int z);
 	virtual void apply();
 };
 #endif
