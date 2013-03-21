@@ -15,6 +15,8 @@ void gear::draw(){
 
     float angle = 0.0;
 
+    colorV(grey);
+
     glBegin(GL_TRIANGLE_STRIP);
     for(int i = 0; i < numTeeth; i++)
     {

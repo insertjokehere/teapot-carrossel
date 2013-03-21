@@ -20,6 +20,7 @@ object::object(transform* constTransform, animation* animationProvider) {
 }
 
 void object::animate(int deltaTMs) {
+	debug("object::animate()");
 	if (animationProvider != NULL) {
 		animationProvider->calcAnim(deltaTMs);
 	}

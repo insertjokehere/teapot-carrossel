@@ -18,10 +18,11 @@ void objectgroup::initilize() {
 	}
 }
 
-void objectgroup::animate(float deltaT) {
+void objectgroup::animate(int deltaTMs) {
 	debug("objectgroup::animate()");
+	object::animate(deltaTMs);
 	for (std::list<object*>::iterator it = objects.begin(); it != objects.end(); it++) {
-		(*it)->animate(deltaT);
+		(*it)->animate(deltaTMs);
 	}
 }
 

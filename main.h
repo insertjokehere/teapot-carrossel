@@ -13,6 +13,8 @@
 #define DEBUG_FPS
 
 void debug(std::string message);
+void debug(float message);
+
 
 #ifdef DEBUG_ALL
 #define DEBUG_TRACE

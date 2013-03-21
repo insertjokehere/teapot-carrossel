@@ -1,6 +1,8 @@
 #ifndef H_TRANSFORMS
 #define H_TRANSFORMS
 
+#include "main.h"
+
 #include <list>
 #include <GL/glut.h>
 

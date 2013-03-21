@@ -25,11 +25,17 @@ void translate::apply() {
 }
 
 rotate::rotate(float theta, int x, int y, int z) {
+	debug("rotate::rotate()");
+	debug(theta);
+	debug(x);
+	debug(y);
+	debug(z);
 	this->theta = theta;
 	this->x = x;
 	this->y = y;
 	this->z = z;
 }
 void rotate::apply() {
+	debug("rotate::apply()");
 	glRotatef(theta, x, y, z);
 }

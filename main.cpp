@@ -16,14 +16,7 @@ using namespace std;
 #include "gear.h"
 #include "floor.h"
 
-void debug(std::string message) {
-  #ifdef DEBUG_TRACE
-  cout << message << endl;
-  #endif
-}
-
 GLUquadric *q = gluNewQuadric();
-
 
 float lgt_pos[] = {0.,50.,0.,1.};
 float cameraPosition[] = {0, 50, 200};
@@ -36,15 +29,27 @@ int frameCount = 0;
 
 objectgroup* rootobject;
 
+void debug(std::string message) {
+  #ifdef DEBUG_TRACE
+  cout << message << endl;
+  #endif
+}
+
+void debug(float message) {
+  #ifdef DEBUG_TRACE
+  cout << message << endl;
+  #endif
+}
+
 void initialize(void) 
 {
 
   rootobject = new objectgroup(NULL, NULL);
 
   objectgroup* gears = new objectgroup(new translate(0,50,0), NULL);
-  gears->add(new gear(25, 10, NULL, new rotateAnimation(1, 10.0, rotateAnimation::AXIS_Y, 0.0)));
-  gears->add(new gear(15, 5, new translate(gear::distX(45.0, 25,15), gear::distY(45.0,25,15), 0), new rotateAnimation(-1, 25.0/15.0 * 10, rotateAnimation::AXIS_Y, 10)));
-  gears->add(new gear(10, 5,  new translate(-gear::distX(45.0, 25,10), gear::distY(45.0,25,10), 0), new rotateAnimation(-1, 25.0, rotateAnimation::AXIS_Y, 0)));
+  gears->add(new gear(25, 10, NULL, new rotateAnimation(1.0, 90, rotateAnimation::AXIS_Z, 0.0)));
+  gears->add(new gear(15, 5, new translate(gear::distX(45.0, 25,15), gear::distY(45.0,25,15), 0), new rotateAnimation(-1.0, 25.0/15.0 * 90, rotateAnimation::AXIS_Z, 10)));
+  gears->add(new gear(10, 5,  new translate(-gear::distX(45.0, 25,10), gear::distY(45.0,25,10), 0), new rotateAnimation(-1.0, 25.0/10.0 * 90, rotateAnimation::AXIS_Z, 0)));
 
   rootobject->add(gears);
   rootobject->add(new floorplane());
@@ -127,27 +132,8 @@ void display(void)
 
   glLightfv(GL_LIGHT0, GL_POSITION, lgt_pos);
 
-  /*glTranslatef(0,50,0);
-
   glPushMatrix();
-  glColor3f(0.0, 0.0, 1.0); 
-  objects[0]->draw();
-  glPopMatrix();
-  glPushMatrix();
-  glColor3f(1.0, 0.0, 0.0); 
-  glTranslatef(gear::distX(45.0, 25,15), gear::distY(45.0,25,15), 0);
-  objects[1]->draw();
-  glPopMatrix();
-  glPushMatrix();
-  glColor3f(0.0, 1.0, 0.0); 
-  glTranslatef(-gear::distX(45.0, 25,10), gear::distY(45.0,25,10), 0);
-  objects[2]->draw();
-  glPopMatrix();*/
-
-  glPushMatrix();
-  glColor3f(0.0, 0.0, 1.0); 
   rootobject->transformAndDraw();
-  //glutSolidTeapot(10);
   glPopMatrix();
 
   glutSwapBuffers();
@@ -168,7 +154,7 @@ void display(void)
 */
 void glutTimerCallback(int value) {
 
-  rootobject->animate(ANIM_STEP_MSEC/1000.0);
+  rootobject->animate(ANIM_STEP_MSEC);
 
   cameraAngle += 0.01;
 

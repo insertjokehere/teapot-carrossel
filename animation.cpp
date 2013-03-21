@@ -6,8 +6,9 @@ animation::animation() {
 }
 
 void animation::calcAnim(int deltaTMs) {
+	debug("animation::calcAnim()");
 	msElapsed += deltaTMs;
-	animationTransform = this->animate(deltaTMs);
+	animationTransform = animate(deltaTMs);
 }
 
 transform* animation::getAnimationTransform() {
@@ -15,6 +16,7 @@ transform* animation::getAnimationTransform() {
 }
 
 rotateAnimation::rotateAnimation(int direction, float speedDPS, unsigned short axis, float rotateOffset) : animation() {
+	debug("rotateAnimation::rotateAnimation()");
 	this->direction = direction;
 	this->speedDPS = speedDPS;
 
@@ -26,7 +28,11 @@ rotateAnimation::rotateAnimation(int direction, float speedDPS, unsigned short a
 }
 
 transform* rotateAnimation::animate(int deltaTMs) {
-	lastTheta += (this->speedDPS * (deltaTMs / 1000.0)) * direction;
+	debug("rotateAnimation::animate()");
+	float step = (this->speedDPS * (deltaTMs / 1000.0)) * direction;
+	lastTheta += step;
+	debug(step);
+	debug(lastTheta);
 	while (lastTheta > 360) {
 		lastTheta -= 360;
 	}

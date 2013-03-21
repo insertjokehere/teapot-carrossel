@@ -24,8 +24,7 @@ public:
 
 	virtual void initilize() {};
 	virtual void draw() {};
-	
-	void animate(int deltaT);
+	virtual void animate(int deltaT);
 
 	void transformAndDraw();
 

@@ -4,6 +4,7 @@
 #include "object.h"
 #include "main.h"
 #include "transforms.h"
+#include "colours.h"
 
 #include <GL/glut.h>
 #include <math.h>

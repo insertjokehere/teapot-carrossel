@@ -13,7 +13,7 @@ public:
 	objectgroup(transform* transform, animation* animationProvider);
 	virtual void draw();
 	virtual void initilize();
-	virtual void animate(float deltaT);
+	virtual void animate(int deltaTMs);
 	void add(object* other);
 };
 

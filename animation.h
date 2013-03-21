@@ -2,6 +2,7 @@
 #define H_ANIMATION
 
 #include "transforms.h"
+#include "main.h"
 
 class animation {
 private:
