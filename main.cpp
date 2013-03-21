@@ -6,8 +6,9 @@ using namespace std;
 #include <iostream>
 
 #include "colours.h"
-
 #include "object.h"
+#include "objectgroup.h"
+
 #include "gear.h"
 #include "floor.h"
 
@@ -22,15 +23,17 @@ float cameraPosition[] = {0, 50, 200};
 
 float cameraAngle = 0;
 
-object* objects[4];
+object* rootobject;
 
 void initialize(void) 
 {
 
-  objects[0] = new gear(25, 10, 1, 1.0, 0);
-  objects[1] = new gear(15, 5, -1, 25.0/15.0, 10);
-  objects[2] = new gear(10, 5, -1, 25.0/10.0, 0);
-  objects[3] = new floorplane();
+  rootobject = new objectgroup();
+
+  rootobject.add(new gear(25, 10, 1, 1.0, 0));
+  rootobject.add(new gear(15, 5, -1, 25.0/15.0, 10));
+  rootobject.add(new gear(10, 5, -1, 25.0/10.0, 0));
+  rootobject.add(new floorplane());
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_NORMALIZE);
@@ -54,6 +57,8 @@ void initialize(void)
   glLightfv(GL_LIGHT0, GL_AMBIENT, grey);
   glLightfv(GL_LIGHT0, GL_DIFFUSE, white);
   glLightfv(GL_LIGHT0, GL_SPECULAR, white);
+
+  rootobject.initialize();
 
   //spotlight
   glEnable(GL_LIGHT1);
@@ -80,7 +85,7 @@ void display(void)
 
    glLightfv(GL_LIGHT0, GL_POSITION, lgt_pos);
 
-   glTranslatef(0,50,0);
+   /*glTranslatef(0,50,0);
   
   glPushMatrix();
   glColor3f(0.0, 0.0, 1.0); 
@@ -95,7 +100,9 @@ void display(void)
     glColor3f(0.0, 1.0, 0.0); 
     glTranslatef(-gear::distX(45.0, 25,10), gear::distY(45.0,25,10), 0);
     objects[2]->draw();
-  glPopMatrix();
+  glPopMatrix();*/
+
+    rootobject.draw();
 
    glutSwapBuffers();
 }
@@ -107,9 +114,7 @@ void display(void)
  */
 void glutTimerCallback(int value) {
 
-  for (unsigned int i = 0; i< NELEMS(objects); i++) {
-    objects[i]->animate(ANIM_STEP_MSEC/1000.0);
-  }
+  rootobject->animate(ANIM_STEP_MSEC/1000.0);
 
   cameraAngle += 0.01;
 
