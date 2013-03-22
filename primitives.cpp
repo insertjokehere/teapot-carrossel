@@ -1,6 +1,6 @@
 #include "primitives.h"
 
-cube::cube(float height, float width, float depth, const float* colour, transform* constTransform, animation* animationProvider) : object(constTransform,animationProvider) {
+cube::cube(float width, float height, float depth, const float* colour, transform* constTransform, animation* animationProvider) : object(constTransform,animationProvider) {
 	this->height = height;
 	this->width = width;
 	this->depth = depth;

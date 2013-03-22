@@ -8,6 +8,8 @@ class animation {
 private:
 	transform* animationTransform;
 	unsigned long msElapsed;
+protected:
+	unsigned long getTotalMsElapsed();
 public:
 	animation();
 	void calcAnim(int deltaTMs);
@@ -32,4 +34,13 @@ public:
 	virtual transform* animate(int deltaTMs);
 };
 
+class oscillateAnimation: public animation {
+private:
+	float targetX, targetY, targetZ;
+	unsigned int moveTimeMs, farHoldMs, nearHoldMs;
+	unsigned int offset;
+public:
+	oscillateAnimation(float targetX, float targetY, float targetZ, unsigned int moveTimeMs, unsigned int farHoldMs, unsigned int nearHoldMs, unsigned int offset);
+	virtual transform* animate(int deltaTMs);
+};
 #endif

@@ -16,7 +16,7 @@ private:
 
 	
 public:
-	cube(float height, float width, float depth, const float* colour, transform* constTransform, animation* animationProvider);
+	cube(float width, float height, float depth, const float* colour, transform* constTransform, animation* animationProvider);
 
 	virtual void draw();
 };
