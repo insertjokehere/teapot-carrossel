@@ -14,6 +14,7 @@ public:
 	virtual void draw();
 	virtual void initilize();
 	virtual void animate(int deltaTMs);
+	virtual void drawSelf() {};
 	void add(object* other);
 };
 

@@ -82,7 +82,7 @@ void initialize(void)
   gears->add(new gear(10, 5,  new translate(-gear::distX(45.0, 25,10), gear::distY(45.0,25,10), 0), new rotateAnimation(-1.0, 25.0/10.0 * 90, rotateAnimation::AXIS_Z, 0)));
 
   rootobject->add(gears);
-  rootobject->add(new furnace(NULL, new rotateAnimation(1.0, 90, rotateAnimation::AXIS_Y, 0.0)));
+  rootobject->add(new furnace(new rotate(180,0,1,0), NULL));
   rootobject->add(new floorplane());
 
   glEnable(GL_DEPTH_TEST);

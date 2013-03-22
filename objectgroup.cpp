@@ -9,6 +9,7 @@ void objectgroup::draw() {
 	for (std::list<object*>::iterator it = objects.begin(); it != objects.end(); it++) {
 		(*it)->transformAndDraw();
 	}
+	drawSelf();
 }
 
 void objectgroup::initilize() {

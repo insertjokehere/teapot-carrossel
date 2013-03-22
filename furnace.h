@@ -4,16 +4,18 @@
 #include "main.h"
 #include "objectgroup.h"
 #include "colours.h"
+#include "primitives.h"
 
-class furnace: public object {
+class furnace: public objectgroup {
 private:
 	LIGHTID light;
 	static const float frontFace[][3];
-	static const float side1[][3];
-	static const float side2[][3];
+	static const float sides[][3];
+	static const float top[][3];
+
 public:
 	furnace(transform* constTransform, animation* animationProvider);
-	virtual void draw();
+	virtual void drawSelf();
 	virtual void initilize();
 };
 
