@@ -171,18 +171,72 @@ void rotatePoint(float origin[3], float point[3], float angle) {
   point[2] = s * (point[0] - origin[0]) + c * (point[2] - origin[2]) + origin[2];
 }
 
+float fAbs(float val) {
+  if (val < 0) {
+    return val * -1.0;
+  } else {
+    return val;
+  }
+}
+
+void translatePoints(float a[3], float b[3], float incr) {
+  float xStep;
+  float zStep;
+  float xIncr = incr;
+  float zIncr = incr;
+
+  debug("translatePoints");
+
+  if (a[0] < b[0]) {
+    xStep = a[0] - b[0];
+    xIncr = xIncr * -1;
+  } else {
+    xStep = b[0] - a[0];
+  }
+
+  if (a[2] < b[2]) {
+    zStep = a[2] - b[2];
+    zIncr = zIncr * -1;
+  } else {
+    zStep = b[2] - a[2];
+  }
+
+  float theta = atan(xStep/zStep);
+  float deltaX = sin(theta) * xIncr;
+  float deltaZ = cos(theta) * zIncr;
+
+  a[0] += deltaX;
+  b[0] += deltaX;
+
+  a[2] += deltaZ;
+  b[2] += deltaZ;
+
+  debug(deltaX);
+  debug(deltaZ);
+
+  debug(xStep);
+  debug(zStep);
+
+  debug(a[0]);
+  debug(a[2]);
+
+  debug(b[0]);
+  debug(b[2]);
+
+}
+
 void glutSpecialCallback(int key, int x, int y) {
   switch (key) {
     case GLUT_KEY_UP:
     {
       debug("GLUT_KEY_UP");
-      cameraPosition[0] += 5;
+      translatePoints(cameraPosition, lookAt, -5);
     }
     break;
     case GLUT_KEY_DOWN:
     {
       debug("GLUT_KEY_DOWN");
-      cameraPosition[0] -= 5;
+      translatePoints(cameraPosition, lookAt, 5);
     }
     break;
     case GLUT_KEY_LEFT:
