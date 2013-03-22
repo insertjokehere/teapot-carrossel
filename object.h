@@ -1,21 +1,15 @@
 #ifndef H_OBJECT
 #define H_OBJECT
 
-#define NO_LIGHTS_AVALIBLE -1
-
 #include "main.h"
 #include "transforms.h"
 #include "animation.h"
 
 #include <GL/glut.h>
 
-typedef unsigned int LIGHTID;
+
 
 class object {
-private:
-	static int numLights;
-	static LIGHTID lights[];
-
 protected:
 	transform* constTransform;
 	animation* animationProvider;
@@ -28,7 +22,7 @@ public:
 
 	void transformAndDraw();
 
-	static LIGHTID reserveLight();
+	static void drawVertex(const float vertex[][3], unsigned int count, GLenum mode);
 };
 
 #endif

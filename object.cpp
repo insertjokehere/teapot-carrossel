@@ -1,19 +1,5 @@
 #include "object.h"
 
-int object::numLights = 0;
-LIGHTID object::lights[] = {GL_LIGHT1, GL_LIGHT2, GL_LIGHT3, GL_LIGHT4, GL_LIGHT5, GL_LIGHT6, GL_LIGHT7}; //GL_LIGHT0 is reserved for global illumination
-
-LIGHTID object::reserveLight()  {
-	if (NELEMS(lights) == numLights - 1) {
-		//all the lights have been reserved
-		return NO_LIGHTS_AVALIBLE;
-	} else {
-		LIGHTID light = lights[numLights];
-		numLights++;
-		return light;
-	}
-}
-
 object::object(transform* constTransform, animation* animationProvider) {
 	this->constTransform = constTransform;
 	this->animationProvider = animationProvider;
@@ -40,4 +26,12 @@ void object::transformAndDraw() {
 	}
 	draw();
 	glPopMatrix();
+}
+
+void object::drawVertex(const float vertex[][3], unsigned int count, GLenum mode) {
+	glBegin(mode);
+	for (unsigned int i = 0; i < count; i++) {
+		glVertex3f(vertex[i][0],vertex[i][1],vertex[i][2]);
+	}
+	glEnd();
 }

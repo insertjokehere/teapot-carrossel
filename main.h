@@ -4,20 +4,27 @@
 #include <string>
 
 #define ANIM_STEP_MSEC 10.0
+#define NO_LIGHTS_AVALIBLE -1
+#define CAMERA_ROTATE_STEP 5
+
 #define NELEMS(x)  (sizeof(x) / sizeof(x[0])) //from http://stackoverflow.com/questions/37538/how-do-i-determine-the-size-of-my-array-in-c
 
-#define CAMERA_ROTATE_STEP 5
+typedef unsigned int LIGHTID;
 
 //Uncomment the following line to enable all debug messages
 //#define DEBUG_ALL
 //Or enable them selectively
-//#define DEBUG_TRACE
+#define DEBUG_TRACE
 #define DEBUG_FPS
 
 void debug(std::string message);
 void debug(float message);
+
 float toRads(float degs);
 
+LIGHTID reserveLight();
+void configLight(LIGHTID light, const float ambient[4], const float diffuse[4], const float specular[4]);
+void configSpotLight(LIGHTID light, const float ambient[4], const float diffuse[4], const float specular[4], float spot_cutoff, float spot_exponent);
 
 #ifdef DEBUG_ALL
 #define DEBUG_TRACE

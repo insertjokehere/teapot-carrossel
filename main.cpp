@@ -1,20 +1,24 @@
 using namespace std;
 
+#include "main.h"
+
 #include <stdlib.h>
 #include <math.h>
 #include <GL/glut.h>
 #include <iostream>
 #include <cstdio>
 
-#include "main.h"
+
 #include "colours.h"
-#include "object.h"
-#include "objectgroup.h"
 #include "transforms.h"
 #include "animation.h"
+#include "object.h"
+#include "objectgroup.h"
+
 
 #include "gear.h"
 #include "floor.h"
+#include "furnace.h"
 
 GLUquadric *q = gluNewQuadric();
 
@@ -25,6 +29,9 @@ float lookAt[] = {0, 50, 0};
 int currentTime = 0;
 int previousTime = 0;
 int frameCount = 0;
+
+int numLights = 0;
+LIGHTID lights[] = {GL_LIGHT1, GL_LIGHT2, GL_LIGHT3, GL_LIGHT4, GL_LIGHT5, GL_LIGHT6, GL_LIGHT7}; //GL_LIGHT0 is reserved for global illumination
 
 objectgroup* rootobject;
 
@@ -40,6 +47,30 @@ void debug(float message) {
   #endif
 }
 
+void configLight(LIGHTID light, const float ambient[4], const float diffuse[4], const float specular[4]) {
+  glEnable(light);
+  glLightfv(light, GL_AMBIENT, ambient);
+  glLightfv(light, GL_DIFFUSE, diffuse);
+  glLightfv(light, GL_SPECULAR, specular);
+}
+
+void configSpotLight(LIGHTID light, const float ambient[4], const float diffuse[4], const float specular[4], float spot_cutoff, float spot_exponent) {
+  configLight(light, ambient, diffuse, specular);
+  glLightf(light, GL_SPOT_CUTOFF, spot_cutoff);
+  glLightf(GL_LIGHT1, GL_SPOT_EXPONENT,spot_exponent);
+}
+
+LIGHTID reserveLight()  {
+  if (NELEMS(lights) == numLights - 1) {
+    //all the lights have been reserved
+    return NO_LIGHTS_AVALIBLE;
+  } else {
+    LIGHTID light = lights[numLights];
+    numLights++;
+    return light;
+  }
+}
+
 void initialize(void) 
 {
 
@@ -51,6 +82,7 @@ void initialize(void)
   gears->add(new gear(10, 5,  new translate(-gear::distX(45.0, 25,10), gear::distY(45.0,25,10), 0), new rotateAnimation(-1.0, 25.0/10.0 * 90, rotateAnimation::AXIS_Z, 0)));
 
   rootobject->add(gears);
+  rootobject->add(new furnace(NULL, new rotateAnimation(1.0, 90, rotateAnimation::AXIS_Y, 0.0)));
   rootobject->add(new floorplane());
 
   glEnable(GL_DEPTH_TEST);
@@ -70,23 +102,9 @@ void initialize(void)
   glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
   glEnable(GL_COLOR_MATERIAL);  
 
-  //global lighting
-  glEnable(GL_LIGHT0);
-  glLightfv(GL_LIGHT0, GL_AMBIENT, grey);
-  glLightfv(GL_LIGHT0, GL_DIFFUSE, white);
-  glLightfv(GL_LIGHT0, GL_SPECULAR, white);
+  configLight(GL_LIGHT0, grey, white, white);
 
   rootobject->initilize();
-
-  //spotlight
-  glEnable(GL_LIGHT1);
-  glLightfv(GL_LIGHT1, GL_AMBIENT, grey);
-  glLightfv(GL_LIGHT1, GL_DIFFUSE, white);
-  glLightfv(GL_LIGHT1, GL_SPECULAR, white);
-  glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, 30.0);
-  glLightf(GL_LIGHT1, GL_SPOT_EXPONENT,0.01);
-  //
-
 
 }
 
