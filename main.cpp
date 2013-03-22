@@ -20,8 +20,7 @@ GLUquadric *q = gluNewQuadric();
 
 float lgt_pos[] = {0.,50.,0.,1.};
 float cameraPosition[] = {0, 50, 200};
-
-float cameraAngle = 0;
+float lookAt[] = {0, 50, 0};
 
 int currentTime = 0;
 int previousTime = 0;
@@ -127,9 +126,8 @@ void display(void)
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
 
-  gluLookAt (cameraPosition[0], cameraPosition[1], cameraPosition[2], 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-
-
+  gluLookAt (cameraPosition[0],cameraPosition[1],cameraPosition[2],lookAt[0],lookAt[1],lookAt[2],0.0,1.0,0.0);
+  
   glLightfv(GL_LIGHT0, GL_POSITION, lgt_pos);
 
   glPushMatrix();
@@ -156,13 +154,54 @@ void glutTimerCallback(int value) {
 
   rootobject->animate(ANIM_STEP_MSEC);
 
-  cameraAngle += 0.01;
+  /*cameraAngle += 0.01;
 
   cameraPosition[0] = 200 * sin(cameraAngle);
-  cameraPosition[2] = 200 * cos(cameraAngle);
+  cameraPosition[2] = 200 * cos(cameraAngle);*/
 
   glutPostRedisplay();
   glutTimerFunc(ANIM_STEP_MSEC, glutTimerCallback, 0);
+}
+
+void rotatePoint(float origin[3], float point[3], float angle) {
+  float s = sin(toRads(angle));
+  float c = cos(toRads(angle));
+
+  point[0] = c * (point[0] - origin[0]) - s * (point[2] - origin[2]) + origin[0];
+  point[2] = s * (point[0] - origin[0]) + c * (point[2] - origin[2]) + origin[2];
+}
+
+void glutSpecialCallback(int key, int x, int y) {
+  switch (key) {
+    case GLUT_KEY_UP:
+    {
+      debug("GLUT_KEY_UP");
+      cameraPosition[0] += 5;
+    }
+    break;
+    case GLUT_KEY_DOWN:
+    {
+      debug("GLUT_KEY_DOWN");
+      cameraPosition[0] -= 5;
+    }
+    break;
+    case GLUT_KEY_LEFT:
+    {
+      debug("GLUT_KEY_LEFT");
+      rotatePoint(cameraPosition, lookAt, -CAMERA_ROTATE_STEP);
+    }
+    break;
+    case GLUT_KEY_RIGHT:
+    {
+      debug("GLUT_KEY_RIGHT");
+      rotatePoint(cameraPosition, lookAt, CAMERA_ROTATE_STEP);
+    }
+    break;
+  }
+}
+
+float toRads(float degs) {
+  return (degs / 180) * PI;
 }
 
 //---------------------------------------------------------------------
@@ -176,8 +215,8 @@ int main(int argc, char** argv)
   initialize ();
 
   glutDisplayFunc(display); 
-
   glutTimerFunc(ANIM_STEP_MSEC, glutTimerCallback, 0);
+  glutSpecialFunc(glutSpecialCallback);
 
   glutMainLoop();
   return 0;
