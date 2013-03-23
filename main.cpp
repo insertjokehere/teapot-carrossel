@@ -15,6 +15,7 @@ using namespace std;
 #include "object.h"
 #include "objectgroup.h"
 
+#include "rotateAnimation.h"
 
 #include "gear.h"
 #include "floor.h"

@@ -5,6 +5,7 @@
 #include "objectgroup.h"
 #include "colours.h"
 #include "primitives.h"
+#include "oscillateAnimation.h"
 
 class furnace: public objectgroup {
 private:

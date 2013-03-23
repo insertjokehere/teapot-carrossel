@@ -26,21 +26,6 @@ public:
 	virtual transform* animate(int deltaTMs) { return NULL; };
 };
 
-class rotateAnimation: public animation {
-int x;
-int y;
-int z;
-int direction;
-float speedDPS;
-float lastTheta;
-public:
-	static const unsigned short AXIS_X = 0x1;
-	static const unsigned short AXIS_Y = 0x2;
-	static const unsigned short AXIS_Z = 0x4;
-	rotateAnimation(int direction, float speedDPS, unsigned short axis, float rotateOffset);
-	virtual transform* animate(int deltaTMs);
-};
-
 class compositeAnimation: public animation {
 private:
 	std::list<unsigned int>* offsets;
@@ -54,26 +39,11 @@ public:
 	virtual transform* animate(int deltaTMs);
 };
 
-class linearTranslateAnimation: public animation {
-private:
-	float* source;
-	float* target;
-	float interpolate(float from, float to, float t);
-public:
-	linearTranslateAnimation(float source[3], float target[3], unsigned int moveTimeMs, unsigned int offset);
-	virtual transform* animate(int deltaTMs);
-};
-
 class staticAnimation: public animation {
 private:
 	transform* constTransform;
 public:
 	staticAnimation(transform* constTransform);
 	virtual transform* animate(int deltaTMs);
-};
-
-class oscillateAnimation: public compositeAnimation {
-public:
-	oscillateAnimation(float target[3], unsigned int moveTimeMs, unsigned int farHoldMs, unsigned int nearHoldMs, unsigned int offset);
 };
 #endif

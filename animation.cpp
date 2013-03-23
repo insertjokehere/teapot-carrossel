@@ -45,35 +45,6 @@ unsigned int animation::getAnimLength() {
 	return animLength;
 }
 
-//--class rotateAnimation
-
-rotateAnimation::rotateAnimation(int direction, float speedDPS, unsigned short axis, float rotateOffset) : animation() {
-	debug("rotateAnimation::rotateAnimation()");
-	this->direction = direction;
-	this->speedDPS = speedDPS;
-
-	this->x = ((axis & AXIS_X) == AXIS_X) ? 1 : 0;
-	this->y = ((axis & AXIS_Y) == AXIS_Y) ? 1 : 0;
-	this->z = ((axis & AXIS_Z) == AXIS_Z) ? 1 : 0;
-
-	lastTheta = rotateOffset;
-}
-
-transform* rotateAnimation::animate(int deltaTMs) {
-	debug("rotateAnimation::animate()");
-	float step = (this->speedDPS * (deltaTMs / 1000.0)) * direction;
-	lastTheta += step;
-	debug(step);
-	debug(lastTheta);
-	while (lastTheta > 360) {
-		lastTheta -= 360;
-	}
-	while (lastTheta < 0) {
-		lastTheta += 360;
-	}
-	return new rotate(lastTheta, x, y, z);
-}
-
 //--class compositeAnimation
 
 
@@ -123,34 +94,6 @@ transform* compositeAnimation::animate(int deltaTMs) {
 	}
 }
 
-//--class linearTranslateAnimation
-
-linearTranslateAnimation::linearTranslateAnimation(float source[3], float target[3], unsigned int moveTimeMs, unsigned int offset) : animation(moveTimeMs, offset) {
-	this->source = source;
-	this->target = target;
-}
-
-transform* linearTranslateAnimation::animate(int deltaTMs) {
-	debug("linearTranslateAnimation::animate()");
-
-	float t = (float)getTotalMsElapsed() / (float)getAnimLength();
-	float position[3];
-
-	debug(t);
-
-	for (int i = 0; i<3; i++) {
-		position[i] = interpolate(source[i], target[i], t);
-		debug(position[i]);
-	}
-
-	return new translate(position);
-
-}
-
-float linearTranslateAnimation::interpolate(float from, float to, float t) {
-	return from + ((to - from) * t);
-}
-
 //--class staticAnimation
 
 staticAnimation::staticAnimation(transform* constTransform) {
@@ -159,18 +102,4 @@ staticAnimation::staticAnimation(transform* constTransform) {
 
 transform* staticAnimation::animate(int deltaTMs) {
 	return constTransform;
-}
-
-//--class oscillateAnimation
-
-oscillateAnimation::oscillateAnimation(float target[3], unsigned int moveTimeMs, unsigned int farHoldMs, unsigned int nearHoldMs, unsigned int offset): compositeAnimation(offset) {
-	// |---moveTimeMs-------------|---farHoldMs-----|---moveTimeMs-------------|---nearHoldMs----|
-	// | linearTranslateAnimation | staticAnimation | linearTranslateAnimation | staticAnimation |
-
-	float origin[3] = {0,0,0};
-
-	add(new linearTranslateAnimation(origin, target, moveTimeMs, 0), moveTimeMs);
-	add(new staticAnimation(new translate(target)),farHoldMs);
-	add(new linearTranslateAnimation(target, origin, moveTimeMs, 0), moveTimeMs);
-	add(new staticAnimation(NULL), nearHoldMs);
 }
