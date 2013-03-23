@@ -2,6 +2,7 @@
 #define H_PRIMITIVES
 
 #include <GL/glut.h>
+#include <math.h>
 
 #include "object.h"
 #include "animation.h"
@@ -12,12 +13,20 @@
 class cube: public object {
 private:
 	float height, width, depth;
-	const float* colour;
+	const float* colour;	
 
-	
 public:
 	cube(float width, float height, float depth, const float* colour, transform* constTransform, animation* animationProvider);
+	virtual void draw();
+};
 
+class cylinder: public object {
+private:
+	static const int slices = 20;
+	const float* colour;
+	float radius, length;
+public:
+	cylinder(float radius, float length, const float* colour, transform* constTransform, animation* animationProvider);
 	virtual void draw();
 };
 
