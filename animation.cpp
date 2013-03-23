@@ -100,35 +100,21 @@ transform* compositeAnimation::animate(int deltaTMs) {
 	}
 }
 
+//--class linearTranslateAnimation
+
+//--class staticAnimation
+
+staticAnimation::staticAnimation(transform* constTransform) {
+	this->constTransform = constTransform;
+}
+
+staticAnimation::transform* animate(int deltaTMs) {
+	return constTransform;
+}
+
 //--class oscillateAnimation
 
 oscillateAnimation::oscillateAnimation(float target[3], unsigned int moveTimeMs, unsigned int farHoldMs, unsigned int nearHoldMs, unsigned int offset) {
-	this->targetX = targetX;
-	this->targetY = targetY;
-	this->targetZ = targetZ;
-	this->moveTimeMs = moveTimeMs;
-	this->farHoldMs = farHoldMs;
-	this->nearHoldMs = nearHoldMs;
-	this->offset = offset;
-}
-
-transform* oscillateAnimation::animate(int deltaTMs) {
-	unsigned int realTime = getTotalMsElapsed() + offset;
-	unsigned int totalAnimTime = 2 * moveTimeMs + farHoldMs + nearHoldMs;
-
-	while (realTime > totalAnimTime) {
-		realTime -= totalAnimTime;
-	}
-
-	if (realTime < moveTimeMs) {
-		for (int i = 0; i<3;i++) {
-			
-		}
-	} else if (realTime < (moveTimeMs + farHoldMs)) {
-
-	} else if (realTime < (moveTimeMs * 2 + farHoldMs)) {
-
-	} else {
-		return NULL;
-	}
+	// |---moveTimeMs--------------|---farHoldMs------|---moveTimeMs--------------|---nearHoldMs----|
+	// | linearTranslateAnimation  | staticAnimation  | linearTranslateAnimation  | staticAnimation |
 }

@@ -50,13 +50,21 @@ public:
 	virtual transform* animate(int deltaTMs);
 };
 
-class oscillateAnimation: public animation {
+class linearTranslateAnimation: public animation {
+public:
+	linearTranslateAnimation(float source[3], float target[3], unsigned int moveTimeMs, unsigned int offset);
+};
+
+class staticAnimation: public animation {
 private:
-	float targetX, targetY, targetZ;
-	unsigned int moveTimeMs, farHoldMs, nearHoldMs;
-	unsigned int offset;
+	transform* constTransform;
+public:
+	staticAnimation(transform* constTransform);
+	virtual transform* animate(int deltaTMs);
+};
+
+class oscillateAnimation: public compositeAnimation {
 public:
 	oscillateAnimation(float target[3], unsigned int moveTimeMs, unsigned int farHoldMs, unsigned int nearHoldMs, unsigned int offset);
-	virtual transform* animate(int deltaTMs);
 };
 #endif
