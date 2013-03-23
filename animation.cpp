@@ -108,7 +108,7 @@ staticAnimation::staticAnimation(transform* constTransform) {
 	this->constTransform = constTransform;
 }
 
-staticAnimation::transform* animate(int deltaTMs) {
+transform* staticAnimation::animate(int deltaTMs) {
 	return constTransform;
 }
 
