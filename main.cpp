@@ -17,9 +17,9 @@ using namespace std;
 
 #include "rotateAnimation.h"
 
-#include "gear.h"
 #include "floor.h"
 #include "furnace.h"
+#include "platform.h"
 
 GLUquadric *q = gluNewQuadric();
 
@@ -77,13 +77,8 @@ void initialize(void)
 
   rootobject = new objectgroup(NULL, NULL);
 
-  objectgroup* gears = new objectgroup(new translate(0,50,0), NULL);
-  gears->add(new gear(25, 10, NULL, new rotateAnimation(1.0, 90, rotateAnimation::AXIS_Z, 0.0)));
-  gears->add(new gear(15, 5, new translate(gear::distX(45.0, 25,15), gear::distY(45.0,25,15), 0), new rotateAnimation(-1.0, 25.0/15.0 * 90, rotateAnimation::AXIS_Z, 10)));
-  gears->add(new gear(10, 5,  new translate(-gear::distX(45.0, 25,10), gear::distY(45.0,25,10), 0), new rotateAnimation(-1.0, 25.0/10.0 * 90, rotateAnimation::AXIS_Z, 0)));
-
-  //rootobject->add(gears);
   rootobject->add(new furnace(new rotate(180,0,1,0), NULL));
+  rootobject->add(new platform(new translate(0,0,40),NULL));
   rootobject->add(new floorplane());
 
   glEnable(GL_DEPTH_TEST);

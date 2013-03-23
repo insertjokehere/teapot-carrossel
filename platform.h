@@ -1,7 +1,10 @@
 #ifndef H_PLATFORM
 #define H_PLATFORM
 
+#include "gear.h"
+#include "primitives.h"
 #include "objectgroup.h"
+#include "rotateAnimation.h"
 
 class platform: public objectgroup {
 private:
@@ -19,7 +22,7 @@ private:
 	};
 
 public:
-	virtual void drawself();
+	platform(transform* constTransform, animation* animationProvider);
 };
 
 #endif
