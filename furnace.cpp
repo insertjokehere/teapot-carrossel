@@ -1,10 +1,10 @@
 #include "furnace.h"
 
 furnace::furnace(transform* constTransform, animation* animationProvider) : objectgroup(constTransform, animationProvider) {
-	float leftDoorAnimTarget[3] = {-7.0,0.0,0.0};
+	float leftDoorAnimTarget[3] = {7.0,0.0,0.0};
 	add(new cube(8,20,0.5,green, new translate(0,0,-0.5), new oscillateAnimation(leftDoorAnimTarget, 2000,3000,3000,0))); //left door
-	float rightDoorAnimTarget[3] = {15.0,0.0,0.0};
-	add(new cube(8,20,0.5,green, new translate(-8,0,-0.5),new oscillateAnimation(rightDoorAnimTarget, 2000,3000,3000,0))); //right door
+	float rightDoorAnimTarget[3] = {-7.0,0.0,0.0};
+	add(new cube(8,20,0.5,orange, new translate(-8,0,-0.5),new oscillateAnimation(rightDoorAnimTarget, 2000,3000,3000,0))); //right door
 	add(new cube(18,2,1.5, red, new translate(-9,20,-1.5), NULL)); //top guidebar
 }
 

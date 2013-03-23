@@ -19,7 +19,7 @@ void animation::calcAnim(int deltaTMs) {
 	msElapsed += deltaTMs;
 
 	if (animLength > 0) {
-		while (msElapsed >= animLength) {
+		while (msElapsed > animLength) {
 			debug(msElapsed);
 			debug(animLength);
 			msElapsed -= animLength;
@@ -78,17 +78,14 @@ transform* compositeAnimation::animate(int deltaTMs) {
 	unsigned int t = getTotalMsElapsed();
 
 	while (t >= (*times) && times != offsets->end()) {
-		debug("t");
-		debug(t);
-		debug("*times");
-		debug((*times));
 		provider = (*anims);
 		times++;
 		anims++;
 	} 
 
 	if (provider != NULL) {
-		return provider->animate(deltaTMs);
+		provider->calcAnim(deltaTMs);
+		return provider->getAnimationTransform();
 	} else {
 		return NULL;
 	}

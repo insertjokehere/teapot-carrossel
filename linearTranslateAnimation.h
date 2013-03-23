@@ -5,8 +5,8 @@
 
 class linearTranslateAnimation: public animation {
 private:
-	float* source;
-	float* target;
+	float source[3];
+	float target[3];
 	float interpolate(float from, float to, float t);
 public:
 	linearTranslateAnimation(float source[3], float target[3], unsigned int moveTimeMs, unsigned int offset);
