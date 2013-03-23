@@ -76,8 +76,8 @@ transform* compositeAnimation::animate(int deltaTMs) {
 	animation* provider = NULL;
 
 	unsigned int t = getTotalMsElapsed();
-	
-	while (t >= (*times)) {
+
+	while (t >= (*times) && times != offsets->end()) {
 		debug("t");
 		debug(t);
 		debug("*times");
@@ -85,7 +85,7 @@ transform* compositeAnimation::animate(int deltaTMs) {
 		provider = (*anims);
 		times++;
 		anims++;
-	}
+	} 
 
 	if (provider != NULL) {
 		return provider->animate(deltaTMs);
