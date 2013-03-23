@@ -28,6 +28,7 @@ private:
 	float z;
 public:
 	translate(float x, float y, float z);
+	translate(float target[3]);
 	virtual void apply();
 };
 

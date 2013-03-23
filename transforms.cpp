@@ -20,6 +20,12 @@ translate::translate(float x, float y, float z) {
 	this->z = z;
 }
 
+translate::translate(float target[3]) {
+	this->x = target[0];
+	this->y = target[1];
+	this->z = target[2];
+}
+
 void translate::apply() {
 	glTranslatef(x, y, z);
 }

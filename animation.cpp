@@ -5,11 +5,27 @@
 animation::animation() {
 	msElapsed = 0;
 	animationTransform = NULL;
+	animLength = 0;
+}
+
+animation::animation(unsigned int animLength, unsigned int offset){
+	msElapsed = offset;
+	animationTransform = NULL;
+	this->animLength = animLength;
 }
 
 void animation::calcAnim(int deltaTMs) {
 	debug("animation::calcAnim()");
 	msElapsed += deltaTMs;
+
+	if (animLength > 0) {
+		while (msElapsed >= animLength) {
+			debug(msElapsed);
+			debug(animLength);
+			msElapsed -= animLength;
+		}
+	}
+
 	animationTransform = animate(deltaTMs);
 }
 
@@ -19,6 +35,14 @@ transform* animation::getAnimationTransform() {
 
 unsigned long animation::getTotalMsElapsed() {
 	return msElapsed;
+}
+
+void animation::setAnimLength(unsigned int animLength) {
+	this->animLength = animLength;
+}
+
+unsigned int animation::getAnimLength() {
+	return animLength;
 }
 
 //--class rotateAnimation
@@ -54,40 +78,39 @@ transform* rotateAnimation::animate(int deltaTMs) {
 
 
 compositeAnimation::compositeAnimation() {
-	construct(0);
+	construct();
 }
 
-compositeAnimation::compositeAnimation(unsigned int offset) {
-	construct(offset);
+compositeAnimation::compositeAnimation(unsigned int offset) : animation(0, offset) {
+	construct();
 }
 
-void compositeAnimation::construct(unsigned int offset) {
-	this->offset = offset;
-	this->totalTime = 0;
-
+void compositeAnimation::construct() {
 	this->offsets = new std::list<unsigned int>();
 	this->animations = new std::list<animation*>();
 }
 
 void compositeAnimation::add(animation* animationProvider, unsigned int lengthMs) {
-	offsets->insert(offsets->end(), totalTime);
+	offsets->insert(offsets->end(), getAnimLength());
 	animations->insert(animations->end(), animationProvider);
-	totalTime += lengthMs;
+
+	setAnimLength(getAnimLength() + lengthMs);
 }
 
 transform* compositeAnimation::animate(int deltaTMs) {
+	debug("compositeAnimation::animate()");
 	std::list<unsigned int>::iterator times = offsets->begin();
 	std::list<animation*>::iterator anims = animations->begin();
 
 	animation* provider = NULL;
 
-	unsigned int adjustedTime = getTotalMsElapsed() + offset;
+	unsigned int t = getTotalMsElapsed();
 	
-	while (adjustedTime > totalTime) {
-		adjustedTime -= totalTime;
-	}
-
-	while (adjustedTime > (*times)) {
+	while (t >= (*times)) {
+		debug("t");
+		debug(t);
+		debug("*times");
+		debug((*times));
 		provider = (*anims);
 		times++;
 		anims++;
@@ -102,6 +125,32 @@ transform* compositeAnimation::animate(int deltaTMs) {
 
 //--class linearTranslateAnimation
 
+linearTranslateAnimation::linearTranslateAnimation(float source[3], float target[3], unsigned int moveTimeMs, unsigned int offset) : animation(moveTimeMs, offset) {
+	this->source = source;
+	this->target = target;
+}
+
+transform* linearTranslateAnimation::animate(int deltaTMs) {
+	debug("linearTranslateAnimation::animate()");
+
+	float t = (float)getTotalMsElapsed() / (float)getAnimLength();
+	float position[3];
+
+	debug(t);
+
+	for (int i = 0; i<3; i++) {
+		position[i] = interpolate(source[i], target[i], t);
+		debug(position[i]);
+	}
+
+	return new translate(position);
+
+}
+
+float linearTranslateAnimation::interpolate(float from, float to, float t) {
+	return from + ((to - from) * t);
+}
+
 //--class staticAnimation
 
 staticAnimation::staticAnimation(transform* constTransform) {
@@ -114,7 +163,14 @@ transform* staticAnimation::animate(int deltaTMs) {
 
 //--class oscillateAnimation
 
-oscillateAnimation::oscillateAnimation(float target[3], unsigned int moveTimeMs, unsigned int farHoldMs, unsigned int nearHoldMs, unsigned int offset) {
-	// |---moveTimeMs--------------|---farHoldMs------|---moveTimeMs--------------|---nearHoldMs----|
-	// | linearTranslateAnimation  | staticAnimation  | linearTranslateAnimation  | staticAnimation |
+oscillateAnimation::oscillateAnimation(float target[3], unsigned int moveTimeMs, unsigned int farHoldMs, unsigned int nearHoldMs, unsigned int offset): compositeAnimation(offset) {
+	// |---moveTimeMs-------------|---farHoldMs-----|---moveTimeMs-------------|---nearHoldMs----|
+	// | linearTranslateAnimation | staticAnimation | linearTranslateAnimation | staticAnimation |
+
+	float origin[3] = {0,0,0};
+
+	add(new linearTranslateAnimation(origin, target, moveTimeMs, 0), moveTimeMs);
+	add(new staticAnimation(new translate(target)),farHoldMs);
+	add(new linearTranslateAnimation(target, origin, moveTimeMs, 0), moveTimeMs);
+	add(new staticAnimation(NULL), nearHoldMs);
 }

@@ -8,11 +8,18 @@ class animation {
 private:
 	transform* animationTransform;
 	unsigned long msElapsed;
+	unsigned int animLength;
 protected:
 	unsigned long getTotalMsElapsed();
 public:
 	animation();
+	animation(unsigned int animLength, unsigned int offset);
+
 	void calcAnim(int deltaTMs);
+
+	void setAnimLength(unsigned int animLength);
+	unsigned int getAnimLength();
+
 	transform* getAnimationTransform();
 	unsigned long totalMsElapsed();
 
@@ -39,10 +46,7 @@ private:
 	std::list<unsigned int>* offsets;
 	std::list<animation*>* animations;
 
-	unsigned int offset;
-	unsigned int totalTime;
-
-	void construct(unsigned int offset);
+	void construct();
 public:
 	compositeAnimation();
 	compositeAnimation(unsigned int offset);
@@ -51,8 +55,13 @@ public:
 };
 
 class linearTranslateAnimation: public animation {
+private:
+	float* source;
+	float* target;
+	float interpolate(float from, float to, float t);
 public:
 	linearTranslateAnimation(float source[3], float target[3], unsigned int moveTimeMs, unsigned int offset);
+	virtual transform* animate(int deltaTMs);
 };
 
 class staticAnimation: public animation {
