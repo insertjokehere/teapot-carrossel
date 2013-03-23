@@ -9,15 +9,18 @@
 
 class furnace: public objectgroup {
 private:
-	LIGHTID light;
-	static const float frontFace[][3];
-	static const float sides[][3];
-	static const float top[][3];
+	class furnaceTop: public objectgroup {
+	private:
+		static const float frontFace[][3];
+		static const float sides[][3];
+		static const float top[][3];
+	public:
+		furnaceTop(transform* constTransform, animation* animationProvider);
+		virtual void drawSelf();
+	};
 
 public:
 	furnace(transform* constTransform, animation* animationProvider);
-	virtual void drawSelf();
-	virtual void initilize();
 };
 
 #endif
