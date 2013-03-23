@@ -30,4 +30,14 @@ public:
 	virtual void draw();
 };
 
+class cone: public object {
+private:
+	static const int slices = 20;
+	const float* colour;
+	float baseRadius, length;
+public:
+	cone(float baseRadius, float length, const float* colour, transform* constTransform, animation* animationProvider);
+	virtual void draw();
+};
+
 #endif
