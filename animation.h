@@ -34,13 +34,29 @@ public:
 	virtual transform* animate(int deltaTMs);
 };
 
+class compositeAnimation: public animation {
+private:
+	std::list<unsigned int>* offsets;
+	std::list<animation*>* animations;
+
+	unsigned int offset;
+	unsigned int totalTime;
+
+	void construct(unsigned int offset);
+public:
+	compositeAnimation();
+	compositeAnimation(unsigned int offset);
+	void add(animation* animationProvider, unsigned int lengthMs);
+	virtual transform* animate(int deltaTMs);
+};
+
 class oscillateAnimation: public animation {
 private:
 	float targetX, targetY, targetZ;
 	unsigned int moveTimeMs, farHoldMs, nearHoldMs;
 	unsigned int offset;
 public:
-	oscillateAnimation(float targetX, float targetY, float targetZ, unsigned int moveTimeMs, unsigned int farHoldMs, unsigned int nearHoldMs, unsigned int offset);
+	oscillateAnimation(float target[3], unsigned int moveTimeMs, unsigned int farHoldMs, unsigned int nearHoldMs, unsigned int offset);
 	virtual transform* animate(int deltaTMs);
 };
 #endif
