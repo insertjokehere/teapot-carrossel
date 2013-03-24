@@ -18,6 +18,8 @@ void gear::draw(){
     colorV(grey);
 
     glBegin(GL_TRIANGLE_STRIP);
+    glVertex3f(0.0, 0.0, 0.0);
+    glVertex3f(0.0, 0.0, thickness);
     for(int i = 0; i < numTeeth; i++)
     {
         glVertex3f(radius*cos(angle), radius*sin(angle),0.0);
@@ -33,12 +35,14 @@ void gear::draw(){
         glVertex3f(radius*cos(angle), radius*sin(angle),thickness);
         angle += 2.0*angInc1;
     }
+    glVertex3f(radius, 0.0, 0.0);
+    glVertex3f(radius, 0.0, thickness);
     glEnd();
 
 
-    glNormal3f(0,1,0);
+    glNormal3f(0,0,-1);
 	draw2D(0.0);
-    glNormal3f(0,-1,0);
+    glNormal3f(0,0,1);
     draw2D(thickness);
 }
 
