@@ -1,2 +1,2 @@
 Assignment1: *.cpp *.h
-	g++ -lglut -lGLU -lm -Wall *.cpp -o Assignment1
+	g++ -lglut -lGLU -lm -Wall -ggdb *.cpp -o Assignment1
