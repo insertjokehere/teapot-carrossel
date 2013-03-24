@@ -15,8 +15,8 @@ void spotlamp::draw() {
 	gluCylinder(q, 0, 3, 5, 20, 20);
 	gluQuadricDrawStyle(q, GLU_FILL);
 
-	float light_pos[] = {0.0,0.0,0.0,0.0};
-	float light_dir[] = {0.0,0.0,-10.0,1.0};
+	float light_pos[] = {0.0,0.0,0.0,1.0};
+	float light_dir[] = {-10.0,0.0,0.0,1.0};
 
 	glLightfv(light,GL_POSITION,light_pos);
 	glLightfv(light,GL_SPOT_DIRECTION,light_dir);
