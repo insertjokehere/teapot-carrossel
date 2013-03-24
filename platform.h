@@ -10,7 +10,7 @@ class platform: public objectgroup {
 private:
 	class platformBody: public objectgroup {
 	public:
-		platformBody();
+		platformBody(transform* constTransform, animation* animationProvider);
 		virtual void initilize();
 		virtual void drawself();
 	};

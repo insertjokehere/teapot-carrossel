@@ -32,3 +32,14 @@ void cylinder::draw() {
 	gluCylinder(q, radius, radius, length, slices, slices);
 	gluQuadricDrawStyle(q, GLU_LINE);
 }
+
+cone::cone(float baseRadius, float length, const float* colour, transform* constTransform, animation* animationProvider) : object(constTransform, animationProvider){
+	this->baseRadius = baseRadius;
+	this->length = length;
+	this->colour = colour;
+}
+
+void cone::draw() {
+	colorV(colour);
+	glutSolidCone(baseRadius, length, slices, slices);
+}

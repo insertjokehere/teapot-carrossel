@@ -10,18 +10,17 @@
 #include <math.h>
 
 const float PI = 3.141593f;
-const float SPACING = 2.5;
 
 class gear: public object {
 private:
 	int numTeeth;
 	float thickness;
 
-	static float getRadius(int numTeeth);
-
 	void draw2D(float depth);
 	
 public:
+	const static float SPACING = 2.5;
+	static float getRadius(int numTeeth);
 	gear(int teeth, float thickness, transform* constTransform, animation* animationProvider);
 	virtual void draw();
 	static float distX(float theta, int gear1, int gear2);
