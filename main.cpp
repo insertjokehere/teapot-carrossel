@@ -20,7 +20,7 @@ using namespace std;
 #include "floor.h"
 #include "furnace.h"
 #include "platform.h"
-#include "colours.h"
+
 
 GLUquadric *q = gluNewQuadric();
 

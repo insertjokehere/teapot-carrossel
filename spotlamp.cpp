@@ -11,7 +11,7 @@ spotlamp::spotlamp(const float* colour, const float* ambient, const float* diffu
 
 void spotlamp::draw() {
 	float light_pos[] = {0.0,0.0,0.0,1.0};
-	float light_dir[] = {10.0,0.0,0.0,1.0};
+	float light_dir[] = {10.0,-10.0,0.0,1.0};
 
 	glLightfv(light,GL_POSITION,light_pos);
 	glLightfv(light,GL_SPOT_DIRECTION,light_dir);
