@@ -50,15 +50,15 @@ platform::platformBody::platformBody(transform* constTransform, animation* anima
 
 		float origin[] = {0,0,0};
 		float slideBack[] = {-22,0,0};
-		float fall[] = {-22,-35,0};
+		//float fall[] = {-22,-35,0};
 		float slideFromFurnace[] = {-20,0,0};
 		compositeAnimation* teapotAnimation = new compositeAnimation(6000*(i+2));
 		teapotAnimation->add(new hideObject(), 2000);
 		teapotAnimation->add(new linearTranslateAnimation(slideFromFurnace,origin,2000,0),2000);
 		teapotAnimation->add(NULL, 8000);
 		teapotAnimation->add(new linearTranslateAnimation(origin, slideBack, 1000,0),1000);
-		teapotAnimation->add(new linearTranslateAnimation(slideBack, fall, 1000,0),1000);
-		teapotAnimation->add(new hideObject(),10000);
+		//teapotAnimation->add(new linearTranslateAnimation(slideBack, fall, 1000,0),1000);
+		teapotAnimation->add(new hideObject(),11000);
 		
 		add(new platformArm(i, new teapot(5,white,teapotTransform,teapotAnimation), new rotate(90*i,0,1,0)));
 	}

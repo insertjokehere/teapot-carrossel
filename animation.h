@@ -14,7 +14,7 @@ protected:
 	unsigned long getTotalMsElapsed();
 public:
 	animation();
-	animation(unsigned int animLength, unsigned int offset);
+	animation(unsigned long animLength, unsigned long offset);
 
 	void calcAnim(int deltaTMs);
 

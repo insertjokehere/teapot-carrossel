@@ -9,7 +9,7 @@ animation::animation() {
 	offset = 0;
 }
 
-animation::animation(unsigned int animLength, unsigned int offset){
+animation::animation(unsigned long animLength, unsigned long offset){
 	msElapsed = offset;
 	this->offset = offset;
 	animationTransform = NULL;
