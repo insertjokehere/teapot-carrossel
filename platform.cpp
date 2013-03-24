@@ -49,16 +49,18 @@ platform::platformBody::platformBody(transform* constTransform, animation* anima
 		teapotTransform->add(new rotate(90,0,1,0));
 
 		float origin[] = {0,0,0};
-		float slideTo[] = {-20,0,0};
+		float slideBack[] = {-22,0,0};
+		float fall[] = {-22,-35,0};
 		float slideFromFurnace[] = {-20,0,0};
 		compositeAnimation* teapotAnimation = new compositeAnimation(6000*(i+2));
 		teapotAnimation->add(new hideObject(), 2000);
 		teapotAnimation->add(new linearTranslateAnimation(slideFromFurnace,origin,2000,0),2000);
 		teapotAnimation->add(NULL, 8000);
-		teapotAnimation->add(new linearTranslateAnimation(origin, slideTo,2000,0),2000);
+		teapotAnimation->add(new linearTranslateAnimation(origin, slideBack, 1000,0),1000);
+		teapotAnimation->add(new linearTranslateAnimation(slideBack, fall, 1000,0),1000);
 		teapotAnimation->add(new hideObject(),10000);
 		
-		add(new platformArm(i, new teapot(5,lampColours[i],teapotTransform,teapotAnimation), new rotate(90*i,0,1,0)));
+		add(new platformArm(i, new teapot(5,white,teapotTransform,teapotAnimation), new rotate(90*i,0,1,0)));
 	}
 
 	add(new cylinder(2.5,70.0,blue,new rotate(-90,1,0,0),NULL)); //center shaft
