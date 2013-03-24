@@ -97,10 +97,10 @@ transform* compositeAnimation::animate(int deltaTMs) {
 	provider = (*anims);
 
 	if (provider != lastAnim) {
-			lastAnim = provider;
-			if (provider != NULL) {
-				provider->reset();	
-			}
+		lastAnim = provider;
+		if (provider != NULL) {
+			provider->reset();	
+		}
 	}
 
 	if (provider != NULL) {	
