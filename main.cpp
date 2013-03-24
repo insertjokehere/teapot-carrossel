@@ -35,7 +35,7 @@ int frameCount = 0;
 int numLights = 0;
 LIGHTID lights[] = {GL_LIGHT1, GL_LIGHT2, GL_LIGHT3, GL_LIGHT4, GL_LIGHT5, GL_LIGHT6, GL_LIGHT7}; //GL_LIGHT0 is reserved for global illumination
 
-objectgroup* rootobject;
+object* rootobject;
 
 void debug(std::string message) {
   #ifdef DEBUG_TRACE
@@ -73,14 +73,20 @@ LIGHTID reserveLight()  {
   }
 }
 
+object* buildScene(){
+  objectgroup* obj = new objectgroup(NULL, NULL);
+
+  obj->add(new furnace(new rotate(180,0,1,0), NULL));
+  obj->add(new platform(new translate(0,0,35),NULL));
+  obj->add(new floorplane());
+
+  return obj;
+}
+
 void initialize(void) 
 {
 
-  rootobject = new objectgroup(NULL, NULL);
-
-  rootobject->add(new furnace(new rotate(180,0,1,0), NULL));
-  rootobject->add(new platform(new translate(0,0,35),NULL));
-  rootobject->add(new floorplane());
+  rootobject = buildScene();
 
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_NORMALIZE);

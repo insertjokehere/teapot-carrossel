@@ -5,6 +5,7 @@
 #include "primitives.h"
 #include "objectgroup.h"
 #include "rotateAnimation.h"
+#include "linearTranslateAnimation.h"
 #include "spotlamp.h"
 
 class platform: public objectgroup {
@@ -16,7 +17,7 @@ private:
 
 	class platformArm : public objectgroup {
 	public:
-		platformArm(object* staticObject, transform* constTransform);
+		platformArm(int armNumber, object* staticObject, transform* constTransform);
 	};
 
 public:

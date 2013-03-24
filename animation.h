@@ -9,6 +9,7 @@ private:
 	transform* animationTransform;
 	unsigned long msElapsed;
 	unsigned int animLength;
+	unsigned long offset;
 protected:
 	unsigned long getTotalMsElapsed();
 public:
@@ -16,6 +17,8 @@ public:
 	animation(unsigned int animLength, unsigned int offset);
 
 	void calcAnim(int deltaTMs);
+
+	void reset();
 
 	void setAnimLength(unsigned int animLength);
 	unsigned int getAnimLength();
@@ -32,6 +35,8 @@ private:
 	std::list<animation*>* animations;
 
 	void construct();
+
+	animation* lastAnim;
 public:
 	compositeAnimation();
 	compositeAnimation(unsigned int offset);

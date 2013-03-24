@@ -6,10 +6,12 @@ animation::animation() {
 	msElapsed = 0;
 	animationTransform = NULL;
 	animLength = 0;
+	offset = 0;
 }
 
 animation::animation(unsigned int animLength, unsigned int offset){
 	msElapsed = offset;
+	this->offset = offset;
 	animationTransform = NULL;
 	this->animLength = animLength;
 }
@@ -17,16 +19,23 @@ animation::animation(unsigned int animLength, unsigned int offset){
 void animation::calcAnim(int deltaTMs) {
 	debug("animation::calcAnim()");
 	msElapsed += deltaTMs;
+	debug(msElapsed);
+	debug(animLength);
 
 	if (animLength > 0) {
-		while (msElapsed > animLength) {
-			debug(msElapsed);
-			debug(animLength);
+		while (msElapsed >= animLength) {
+			
 			msElapsed -= animLength;
+			debug(msElapsed);
 		}
 	}
 
 	animationTransform = animate(deltaTMs);
+}
+
+void animation::reset() {
+	debug("animation::reset()");
+	msElapsed = offset;
 }
 
 transform* animation::getAnimationTransform() {
@@ -57,6 +66,7 @@ compositeAnimation::compositeAnimation(unsigned int offset) : animation(0, offse
 }
 
 void compositeAnimation::construct() {
+	lastAnim = NULL;
 	this->offsets = new std::list<unsigned int>();
 	this->animations = new std::list<animation*>();
 }
@@ -70,6 +80,7 @@ void compositeAnimation::add(animation* animationProvider, unsigned int lengthMs
 
 transform* compositeAnimation::animate(int deltaTMs) {
 	debug("compositeAnimation::animate()");
+
 	std::list<unsigned int>::iterator times = offsets->begin();
 	std::list<animation*>::iterator anims = animations->begin();
 
@@ -77,13 +88,22 @@ transform* compositeAnimation::animate(int deltaTMs) {
 
 	unsigned int t = getTotalMsElapsed();
 
-	while (t >= (*times) && times != offsets->end()) {
-		provider = (*anims);
+	while (t > (*times) && times != offsets->end()) {
 		times++;
 		anims++;
 	} 
 
-	if (provider != NULL) {
+	anims--;
+	provider = (*anims);
+
+	if (provider != lastAnim) {
+			lastAnim = provider;
+			if (provider != NULL) {
+				provider->reset();	
+			}
+	}
+
+	if (provider != NULL) {	
 		provider->calcAnim(deltaTMs);
 		return provider->getAnimationTransform();
 	} else {

@@ -47,7 +47,16 @@ platform::platformBody::platformBody(transform* constTransform, animation* anima
 		compositeTransform* teapotTransform = new compositeTransform();
 		teapotTransform->add(new translate(0,2.5,0));
 		teapotTransform->add(new rotate(90,0,1,0));
-		add(new platformArm(new teapot(5,white,teapotTransform,NULL), new rotate(90*i,0,1,0)));
+
+		compositeAnimation* teapotAnimation = new compositeAnimation(4000*(i+2));
+		teapotAnimation->add(new hideObject(), 4000);
+		teapotAnimation->add(NULL, 8000);
+		float origin[] = {0,0,0};
+		float slideTo[] = {-20,0,0};
+		teapotAnimation->add(new linearTranslateAnimation(origin, slideTo,2000,0),2000);
+		teapotAnimation->add(new hideObject(),2000);
+
+		add(new platformArm(i, new teapot(5,lampColours[i],teapotTransform,new hideObject()), new rotate(90*i,0,1,0)));
 	}
 
 	add(new cylinder(2.5,70.0,blue,new rotate(-90,1,0,0),NULL)); //center shaft
@@ -59,10 +68,15 @@ platform::platformBody::platformBody(transform* constTransform, animation* anima
 
 //--platformArm
 
-platform::platformArm::platformArm(object* staticObject, transform* constTransform): objectgroup(constTransform, NULL) {
+platform::platformArm::platformArm(int armNumber, object* staticObject, transform* constTransform): objectgroup(constTransform, NULL) {
 	add(new cube(3,3,25,grey,new translate(-1.5,30,0),NULL));
 
-	objectgroup* plate = new objectgroup(new translate(0,35,25),NULL);
+	compositeAnimation* plateAnim = new compositeAnimation(armNumber*6000);
+	plateAnim->add(new rotateAnimation(1,45,AXIS_X,0),1000);
+	plateAnim->add(new rotateAnimation(-1,45,AXIS_X,45),1000);
+	plateAnim->add(NULL, 22000);
+
+	objectgroup* plate = new objectgroup(new translate(0,35,25),plateAnim);
 
 	compositeTransform* plateTransform = new compositeTransform();
 	plateTransform->add(new translate(0,-2,0));

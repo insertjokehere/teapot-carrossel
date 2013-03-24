@@ -9,7 +9,7 @@ int y;
 int z;
 int direction;
 float speedDPS;
-float lastTheta;
+float rotateOffset;
 public:
 	rotateAnimation(int direction, float speedDPS, unsigned short axis, float rotateOffset);
 	virtual transform* animate(int deltaTMs);
