@@ -24,6 +24,8 @@ public:
 	unsigned long totalMsElapsed();
 
 	virtual transform* animate(int deltaTMs) { return NULL; };
+
+	
 };
 
 class compositeAnimation: public animation {

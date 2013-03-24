@@ -6,17 +6,36 @@ platform::platform(transform* constTransform, animation* animationProvider): obj
 	gears->add(new gear(25, 10, NULL, new rotateAnimation(1.0, 90, rotateAnimation::AXIS_Z, 0.0)));
 	gears->add(new gear(15, 5, new translate(gear::distX(45.0, 25,15), gear::distY(45.0,25,15), 0), new rotateAnimation(-1.0, 25.0/15.0 * 90, rotateAnimation::AXIS_Z, 10)));
 	gears->add(new gear(10, 5,  new translate(-gear::distX(45.0, 25,10), gear::distY(45.0,25,10), 0), new rotateAnimation(-1.0, 25.0/10.0 * 90, rotateAnimation::AXIS_Z, 0)));*/
-	add(new platformBody(NULL,new rotateAnimation(1.0,90,rotateAnimation::AXIS_Y, 0.0)));
+
+
+	compositeAnimation* anims[3] = {new compositeAnimation(),new compositeAnimation(),new compositeAnimation()};
+	int direction[] = {1,-1,1};
+	float gearRatio[] = {1, 25.0/15.0, 25.0/10.0};
+
+
+	for (int i = 0; i<4; i++) {
+		for (int j = 0; j < 3; j++) {
+			if (j==0) {
+				anims[j]->add(new staticAnimation(new rotate(90*i,0,1,0)),4000);
+				anims[j]->add(new rotateAnimation(direction[j],45*gearRatio[j],rotateAnimation::AXIS_Y, 90*i),2000);
+			} else {
+				anims[j]->add(new staticAnimation(new rotate(90*i,0,0,1)),4000);
+				anims[j]->add(new rotateAnimation(direction[j],45*gearRatio[j],rotateAnimation::AXIS_Z, 90*i),2000);
+			}
+		}
+	}
+
+	add(new platformBody(NULL,anims[0]));
 
 	compositeTransform* gear1Transform = new compositeTransform();
 	gear1Transform->add(new translate(gear::getRadius(15)+gear::getRadius(25)+gear::SPACING,0,0));
 	gear1Transform->add(new rotate(-90,1,0,0));
-	add(new gear(15,4,gear1Transform, NULL));
+	add(new gear(15,4,gear1Transform, anims[1]));
 
 	compositeTransform* gear2Transform = new compositeTransform();
 	gear2Transform->add(new translate(gear::getRadius(10) + 2*gear::getRadius(15)+gear::getRadius(25)+2*gear::SPACING,0,0));
 	gear2Transform->add(new rotate(-90,1,0,0));
-	add(new gear(10,4,gear2Transform, NULL));	
+	add(new gear(10,4,gear2Transform, anims[2]));	
 }
 
 //--platformBody
