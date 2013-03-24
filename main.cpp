@@ -20,6 +20,7 @@ using namespace std;
 #include "floor.h"
 #include "furnace.h"
 #include "platform.h"
+#include "colours.h"
 
 GLUquadric *q = gluNewQuadric();
 
@@ -58,7 +59,7 @@ void configLight(LIGHTID light, const float ambient[4], const float diffuse[4], 
 void configSpotLight(LIGHTID light, const float ambient[4], const float diffuse[4], const float specular[4], float spot_cutoff, float spot_exponent) {
   configLight(light, ambient, diffuse, specular);
   glLightf(light, GL_SPOT_CUTOFF, spot_cutoff);
-  glLightf(GL_LIGHT1, GL_SPOT_EXPONENT,spot_exponent);
+  glLightf(light, GL_SPOT_EXPONENT,spot_exponent);
 }
 
 LIGHTID reserveLight()  {

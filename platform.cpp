@@ -21,17 +21,23 @@ platform::platform(transform* constTransform, animation* animationProvider): obj
 
 //--platformBody
 platform::platformBody::platformBody(transform* constTransform, animation* animationProvider): objectgroup(constTransform,animationProvider) {
+	const float* lampColours[]={red, blue, green, white};
+
+	for (int i = 0; i<4;i++) {
+		compositeTransform* lampTransform = new compositeTransform();
+		lampTransform->add(new rotate(90*i,0,1,0));
+		lampTransform->add(new translate(0,70.0,2));
+		lampTransform->add(new rotate(45,1,0,0));
+		add(new spotlamp(lampColours[i],lampColours[i],lampColours[i],lampColours[i],30.0,0.01,lampTransform, NULL));
+
+		add(new platformArm(NULL, new rotate(90*i,0,1,0)));
+	}
+
 	add(new cylinder(2.5,70.0,blue,new rotate(-90,1,0,0),NULL)); //center shaft
 
 	add(new gear(25,4,new rotate(-90,1,0,0),NULL));
-	
-	compositeTransform* coneTransform = new compositeTransform();
-	coneTransform->add(new translate(0,70.0,-3));
-	coneTransform->add(new rotate(-45,1,0,0));
-	coneTransform->add(new translate(0,0,4.5 * -0.5));
-	add(new cone(3,4.5,red,coneTransform,NULL));
 
-	add(new platformArm(NULL, NULL));
+	
 }
 
 void platform::platformBody::initilize() {

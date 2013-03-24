@@ -5,6 +5,7 @@
 #include "primitives.h"
 #include "objectgroup.h"
 #include "rotateAnimation.h"
+#include "spotlamp.h"
 
 class platform: public objectgroup {
 private:
