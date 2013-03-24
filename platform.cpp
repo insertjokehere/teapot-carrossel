@@ -45,8 +45,12 @@ void platform::platformBody::drawself() {
 //--platformArm
 
 platform::platformArm::platformArm(object* staticObject, transform* constTransform): objectgroup(constTransform, NULL) {
-	add(new cube(3,3,25,grey,new translate(-1.5,32,0),NULL));
-	add(new cube(10,2,10,grey,new translate(-5,35,20),NULL));
+	add(new cube(3,3,25,grey,new translate(-1.5,30,0),NULL));
+
+	compositeTransform* plateTransform = new compositeTransform();
+	plateTransform->add(new translate(0,33,25));
+	plateTransform->add(new rotate(-90,1,0,0));
+	add(new cylinder(10,2,grey,plateTransform,NULL));
 }
 
 void platform::platformArm::drawself() {

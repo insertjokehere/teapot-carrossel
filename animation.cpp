@@ -100,3 +100,12 @@ staticAnimation::staticAnimation(transform* constTransform) {
 transform* staticAnimation::animate(int deltaTMs) {
 	return constTransform;
 }
+
+//--class hideObject
+
+hideObject::hideObject() : animation() {
+}
+
+transform* hideObject::animate(int deltaTMs) {
+	return new translate(0,-100,0); //hide the object below the floor plane
+}

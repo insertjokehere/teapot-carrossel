@@ -46,4 +46,10 @@ public:
 	staticAnimation(transform* constTransform);
 	virtual transform* animate(int deltaTMs);
 };
+
+class hideObject: public animation {
+public:
+	hideObject();
+	virtual transform* animate(int deltaTMs);
+};
 #endif

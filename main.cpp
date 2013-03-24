@@ -78,7 +78,7 @@ void initialize(void)
   rootobject = new objectgroup(NULL, NULL);
 
   rootobject->add(new furnace(new rotate(180,0,1,0), NULL));
-  rootobject->add(new platform(new translate(0,0,40),NULL));
+  rootobject->add(new platform(new translate(0,0,35),NULL));
   rootobject->add(new floorplane());
 
   glEnable(GL_DEPTH_TEST);

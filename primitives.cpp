@@ -27,10 +27,23 @@ cylinder::cylinder(float radius, float length, const float* colour, transform* c
 }
 
 void cylinder::draw() {
+
 	colorV(colour);
 	GLUquadric *q = gluNewQuadric();
 	gluCylinder(q, radius, radius, length, slices, slices);
-	gluQuadricDrawStyle(q, GLU_LINE);
+	gluQuadricDrawStyle(q, GLU_FILL);
+
+	GLUquadric *end1 = gluNewQuadric();
+	gluDisk(end1, 0, radius, slices, slices);
+	gluQuadricDrawStyle(end1, GLU_LINE);
+
+	glPushMatrix();
+		glTranslatef(0,0,length);
+		GLUquadric *end2 = gluNewQuadric();
+		gluDisk(end2, 0, radius, slices, slices);
+		gluQuadricDrawStyle(end2, GLU_LINE);
+	glPopMatrix();
+
 }
 
 cone::cone(float baseRadius, float length, const float* colour, transform* constTransform, animation* animationProvider) : object(constTransform, animationProvider){
