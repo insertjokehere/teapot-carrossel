@@ -26,6 +26,10 @@ LIGHTID reserveLight();
 void configLight(LIGHTID light, const float ambient[4], const float diffuse[4], const float specular[4]);
 void configSpotLight(LIGHTID light, const float ambient[4], const float diffuse[4], const float specular[4], float spot_cutoff, float spot_exponent);
 
+static const unsigned short AXIS_X = 0x1;
+static const unsigned short AXIS_Y = 0x2;
+static const unsigned short AXIS_Z = 0x4;
+
 #ifdef DEBUG_ALL
 #define DEBUG_TRACE
 #define DEBUG_FPS

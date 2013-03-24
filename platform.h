@@ -12,14 +12,11 @@ private:
 	class platformBody: public objectgroup {
 	public:
 		platformBody(transform* constTransform, animation* animationProvider);
-		virtual void initilize();
-		virtual void drawself();
 	};
 
 	class platformArm : public objectgroup {
 	public:
 		platformArm(object* staticObject, transform* constTransform);
-		virtual void drawself();
 	};
 
 public:

@@ -40,6 +40,7 @@ private:
 	int z;
 public:
 	rotate(float theta, int x, int y, int z);
+	rotate(float theta, unsigned short axis);
 	virtual void apply();
 };
 #endif

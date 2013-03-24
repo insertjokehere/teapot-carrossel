@@ -11,17 +11,12 @@ platform::platform(transform* constTransform, animation* animationProvider): obj
 	compositeAnimation* anims[3] = {new compositeAnimation(),new compositeAnimation(),new compositeAnimation()};
 	int direction[] = {1,-1,1};
 	float gearRatio[] = {1, 25.0/15.0, 25.0/10.0};
-
+	unsigned short axis[] = {AXIS_Y,AXIS_Z,AXIS_Z};
 
 	for (int i = 0; i<4; i++) {
 		for (int j = 0; j < 3; j++) {
-			if (j==0) {
-				anims[j]->add(new staticAnimation(new rotate(90*i,0,1,0)),4000);
-				anims[j]->add(new rotateAnimation(direction[j],45*gearRatio[j],rotateAnimation::AXIS_Y, 90*i),2000);
-			} else {
-				anims[j]->add(new staticAnimation(new rotate(90*i,0,0,1)),4000);
-				anims[j]->add(new rotateAnimation(direction[j],45*gearRatio[j],rotateAnimation::AXIS_Z, 90*i),2000);
-			}
+			anims[j]->add(new staticAnimation(new rotate(90*i,axis[j])),4000);
+			anims[j]->add(new rotateAnimation(direction[j],45*gearRatio[j],axis[j], 90*i),2000);
 		}
 	}
 
@@ -59,14 +54,6 @@ platform::platformBody::platformBody(transform* constTransform, animation* anima
 	
 }
 
-void platform::platformBody::initilize() {
-
-}
-
-void platform::platformBody::drawself() {
-
-}
-
 //--platformArm
 
 platform::platformArm::platformArm(object* staticObject, transform* constTransform): objectgroup(constTransform, NULL) {
@@ -76,8 +63,4 @@ platform::platformArm::platformArm(object* staticObject, transform* constTransfo
 	plateTransform->add(new translate(0,33,25));
 	plateTransform->add(new rotate(-90,1,0,0));
 	add(new cylinder(10,2,grey,plateTransform,NULL));
-}
-
-void platform::platformArm::drawself() {
-
 }

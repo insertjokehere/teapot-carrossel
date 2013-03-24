@@ -41,6 +41,14 @@ rotate::rotate(float theta, int x, int y, int z) {
 	this->y = y;
 	this->z = z;
 }
+
+rotate::rotate(float theta, unsigned short axis) {
+	this->theta = theta;
+	this->x = ((axis & AXIS_X) == AXIS_X) ? 1 : 0;
+	this->y = ((axis & AXIS_Y) == AXIS_Y) ? 1 : 0;
+	this->z = ((axis & AXIS_Z) == AXIS_Z) ? 1 : 0;
+}
+
 void rotate::apply() {
 	debug("rotate::apply()");
 	glRotatef(theta, x, y, z);
