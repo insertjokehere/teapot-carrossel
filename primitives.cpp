@@ -56,3 +56,13 @@ void cone::draw() {
 	colorV(colour);
 	glutSolidCone(baseRadius, length, slices, slices);
 }
+
+teapot::teapot(float size, const float* colour, transform* constTransform, animation* animationProvider):object(constTransform, animationProvider) {
+	this->size = size;
+	this->colour = colour;
+}
+
+void teapot::draw() {
+	colorV(colour);
+	glutSolidTeapot(size);
+}

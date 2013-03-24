@@ -40,4 +40,12 @@ public:
 	virtual void draw();
 };
 
+class teapot: public object {
+private:
+	float size;
+	const float* colour;
+public:
+	teapot(float size, const float* colour, transform* constTransform, animation* animationProvider);
+	virtual void draw();
+};
 #endif
