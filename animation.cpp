@@ -35,7 +35,8 @@ void animation::calcAnim(int deltaTMs) {
 
 void animation::reset() {
 	debug("animation::reset()");
-	msElapsed = offset;
+	this->msElapsed = this->offset;
+	debug("animation::reset()--");
 }
 
 transform* animation::getAnimationTransform() {

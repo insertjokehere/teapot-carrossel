@@ -11,6 +11,7 @@ furnace::furnaceTop::furnaceTop(transform* constTransform, animation* animationP
 	float rightDoorAnimTarget[3] = {-7.0,0.0,0.0};
 	add(new cube(8,20,0.5,orange, new translate(-8,0,-0.5),new oscillateAnimation(rightDoorAnimTarget, 2000,2000,0,0))); //right door
 	add(new cube(18,2,1.5, red, new translate(-9,20,-1.5), NULL)); //top guidebar
+
 }
 
 const float furnace::furnaceTop::frontFace[][3] = {{-7.5,20,0}, {-7.5,0,0}, {-17.5,0,0}, {-17.5,35.0,0.0},{0.0,35.0,0.0},{0.0,20.0,0.0}};
