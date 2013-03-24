@@ -20,6 +20,7 @@ using namespace std;
 #include "floor.h"
 #include "furnace.h"
 #include "platform.h"
+#include "trashBox.h"
 
 
 GLUquadric *q = gluNewQuadric();
@@ -78,20 +79,8 @@ object* buildScene(){
 
   obj->add(new furnace(new rotate(180,0,1,0), NULL));
   obj->add(new platform(new translate(0,0,35),NULL));
-
-  compositeAnimation* fallingPotAnim = new compositeAnimation();
-  float origin[] = {0,0,0};
-  float ground[] = {-30,-30,0};
-  fallingPotAnim->add(new hideObject(),1000);
-  fallingPotAnim->add(new linearTranslateAnimation(origin,ground,1000,0),1000);
-  fallingPotAnim->add(new hideObject(), 4000);
-
-  compositeTransform* fallingPotTranform = new compositeTransform();
-  fallingPotTranform->add(new translate(0,24,78));
-  fallingPotTranform->add(new rotate(45,AXIS_X));
-  fallingPotTranform->add(new rotate(90,AXIS_Y));
-
-  obj->add(new teapot(5,white,fallingPotTranform,fallingPotAnim));
+  obj->add(new trashbox(new translate(0,0,78),NULL));
+  
 
   obj->add(new floorplane());
 
