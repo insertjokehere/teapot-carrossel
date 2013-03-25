@@ -16,7 +16,8 @@ private:
 
 	LIGHTID light;
 public:
-	spotlamp(const float* colour, const float* ambient, const float* diffuse, const float* specular, float spot_cutoff, float spot_exponent, transform* constTransform, animation* animationProvider);
+	spotlamp(const float* colour, const float* ambient, const float* diffuse, const float* specular, float spot_cutoff, 
+			 float spot_exponent, transform* constTransform, animation* animationProvider);
 	virtual void draw();
 	virtual void initilize();
 };

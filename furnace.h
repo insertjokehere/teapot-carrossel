@@ -6,6 +6,8 @@
 #include "colours.h"
 #include "primitives.h"
 #include "oscillateAnimation.h"
+#include "particleEmitter.h"
+#include "spotlamp.h"
 
 class furnace: public objectgroup {
 private:
