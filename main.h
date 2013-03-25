@@ -14,7 +14,7 @@ typedef unsigned int LIGHTID;
 //Uncomment the following line to enable all debug messages
 //#define DEBUG_ALL
 //Or enable them selectively
-#define DEBUG_TRACE
+//#define DEBUG_TRACE
 #define DEBUG_FPS
 
 void debug(std::string message);

@@ -15,9 +15,5 @@ trashbox::trashbox(transform* constTransform, animation* animationProvider) : ob
 
 	add(new teapot(5,white,fallingPotTranform,fallingPotAnim));
 
-}
-
-void trashbox::drawSelf() {
-	float boxVertex[][3] = { {-5,0,-5},{-5,7,-5},{-5,0,0},{-5,7,0},{0,0,0},{0,7,0},{0,0,-5},{0,7,-5},{-5,0,-5},{-5,7,-5}};
-	drawVertex(boxVertex,10,GL_QUAD_STRIP);
+	add(new cylinder(10,15,false,white,new rotate(-90,AXIS_X),NULL));
 }

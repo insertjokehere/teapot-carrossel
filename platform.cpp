@@ -63,7 +63,7 @@ platform::platformBody::platformBody(transform* constTransform, animation* anima
 		add(new platformArm(i, new teapot(5,white,teapotTransform,teapotAnimation), new rotate(90*i,0,1,0)));
 	}
 
-	add(new cylinder(2.5,70.0,blue,new rotate(-90,1,0,0),NULL)); //center shaft
+	add(new cylinder(2.5,70.0,true,blue,new rotate(-90,1,0,0),NULL)); //center shaft
 
 	add(new gear(25,4,new rotate(-90,1,0,0),NULL));
 
@@ -85,7 +85,7 @@ platform::platformArm::platformArm(int armNumber, object* staticObject, transfor
 	compositeTransform* plateTransform = new compositeTransform();
 	plateTransform->add(new translate(0,-2,0));
 	plateTransform->add(new rotate(-90,1,0,0));
-	plate->add(new cylinder(10,2,grey,plateTransform,NULL));
+	plate->add(new cylinder(10,2,true,grey,plateTransform,NULL));
 
 	if (staticObject != NULL) {
 		plate->add(staticObject);

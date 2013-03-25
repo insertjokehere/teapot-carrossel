@@ -8,7 +8,6 @@
 class trashbox: public objectgroup {
 public:
 	trashbox(transform* constTransform, animation* animationProvider);
-	virtual void drawSelf();
 };
 
 #endif

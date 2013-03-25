@@ -25,8 +25,9 @@ private:
 	static const int slices = 20;
 	const float* colour;
 	float radius, length;
+	bool closed;
 public:
-	cylinder(float radius, float length, const float* colour, transform* constTransform, animation* animationProvider);
+	cylinder(float radius, float length, bool closed, const float* colour, transform* constTransform, animation* animationProvider);
 	virtual void draw();
 };
 
