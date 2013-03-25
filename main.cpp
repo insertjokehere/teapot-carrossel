@@ -7,7 +7,8 @@ using namespace std;
 #include <GL/glut.h>
 #include <iostream>
 #include <cstdio>
-
+#include <cstdlib>
+#include <ctime>
 
 #include "colours.h"
 #include "transforms.h"
@@ -21,6 +22,7 @@ using namespace std;
 #include "furnace.h"
 #include "platform.h"
 #include "trashBox.h"
+#include "particleEmitter.h"
 
 
 GLUquadric *q = gluNewQuadric();
@@ -91,10 +93,10 @@ void setCameraMode(int mode) {
 object* buildScene(){
   objectgroup* obj = new objectgroup(NULL, NULL);
 
-  obj->add(new furnace(new rotate(180,0,1,0), NULL));
-  obj->add(new platform(new translate(0,0,35),NULL));
-  obj->add(new trashbox(new translate(0,0,78),NULL));
-  
+  //obj->add(new furnace(new rotate(180,0,1,0), NULL));
+  //obj->add(new platform(new translate(0,0,35),NULL));
+  //obj->add(new trashbox(new translate(0,0,78),NULL));
+  obj->add(new particleEmitter(2000,5,40,grey,5000,0.25,new translate(10,0,0),NULL));
 
   obj->add(new floorplane());
 
@@ -103,6 +105,8 @@ object* buildScene(){
 
 void initialize(void) 
 {
+
+  srand((unsigned)time(0)); //seed the random number generator
 
   rootobject = buildScene();
 
