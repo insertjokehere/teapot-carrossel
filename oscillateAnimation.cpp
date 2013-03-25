@@ -1,6 +1,6 @@
 #include "oscillateAnimation.h"
 
-oscillateAnimation::oscillateAnimation(float target[3], unsigned int moveTimeMs, unsigned int farHoldMs, unsigned int nearHoldMs, unsigned int offset): compositeAnimation(offset) {
+oscillateAnimation::oscillateAnimation(float target[3], unsigned int moveTimeMs, unsigned int farHoldMs, unsigned int nearHoldMs, unsigned int offset): animationSequence(offset) {
 	// |---moveTimeMs-------------|---farHoldMs-----|---moveTimeMs-------------|---nearHoldMs----|
 	// | linearTranslateAnimation | staticAnimation | linearTranslateAnimation | staticAnimation |
 

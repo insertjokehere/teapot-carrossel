@@ -4,7 +4,7 @@
 #include "animation.h"
 #include "linearTranslateAnimation.h"
 
-class oscillateAnimation: public compositeAnimation {
+class oscillateAnimation: public animationSequence {
 public:
 	oscillateAnimation(float target[3], unsigned int moveTimeMs, unsigned int farHoldMs, unsigned int nearHoldMs, unsigned int offset);
 };

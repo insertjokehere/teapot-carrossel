@@ -1,7 +1,7 @@
 #include "trashBox.h"
 
 trashbox::trashbox(transform* constTransform, animation* animationProvider) : objectgroup(constTransform, animationProvider) {
-	compositeAnimation* fallingPotAnim = new compositeAnimation();
+	animationSequence* fallingPotAnim = new animationSequence();
 	float origin[] = {0,0,0};
 	float ground[] = {-30,-30,0};
 	fallingPotAnim->add(new hideObject(),1000);

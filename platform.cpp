@@ -8,7 +8,7 @@ platform::platform(transform* constTransform, animation* animationProvider): obj
 	gears->add(new gear(10, 5,  new translate(-gear::distX(45.0, 25,10), gear::distY(45.0,25,10), 0), new rotateAnimation(-1.0, 25.0/10.0 * 90, rotateAnimation::AXIS_Z, 0)));*/
 
 
-	compositeAnimation* anims[3] = {new compositeAnimation(),new compositeAnimation(),new compositeAnimation()};
+	animationSequence* anims[3] = {new animationSequence(),new animationSequence(),new animationSequence()};
 	int direction[] = {1,-1,1};
 	float gearRatio[] = {1, 25.0/15.0, 25.0/10.0};
 	unsigned short axis[] = {AXIS_Y,AXIS_Z,AXIS_Z};
@@ -52,7 +52,7 @@ platform::platformBody::platformBody(transform* constTransform, animation* anima
 		float slideBack[] = {-22,0,0};
 		//float fall[] = {-22,-35,0};
 		float slideFromFurnace[] = {-20,0,0};
-		compositeAnimation* teapotAnimation = new compositeAnimation(6000*(i+2));
+		animationSequence* teapotAnimation = new animationSequence(6000*(i+2));
 		teapotAnimation->add(new hideObject(), 2000);
 		teapotAnimation->add(new linearTranslateAnimation(slideFromFurnace,origin,2000,0),2000);
 		teapotAnimation->add(NULL, 8000);
@@ -81,7 +81,7 @@ void platform::platformBody::drawSelf() {
 platform::platformArm::platformArm(int armNumber, object* staticObject, transform* constTransform): objectgroup(constTransform, NULL) {
 	add(new cube(3,3,25,grey,new translate(-1.5,30,0),NULL));
 
-	compositeAnimation* plateAnim = new compositeAnimation(armNumber*6000);
+	animationSequence* plateAnim = new animationSequence(armNumber*6000);
 	plateAnim->add(new rotateAnimation(1,45,AXIS_X,0),1000);
 	plateAnim->add(new rotateAnimation(-1,45,AXIS_X,45),1000);
 	plateAnim->add(NULL, 22000);

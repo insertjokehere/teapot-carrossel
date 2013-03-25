@@ -62,7 +62,7 @@ public:
 	virtual transform* animate(int deltaTMs) { return NULL; };
 };
 
-class compositeAnimation: public animation {
+class animationSequence: public animation {
 private:
 	std::list<unsigned int>* offsets;
 	std::list<animation*>* animations;
@@ -71,8 +71,8 @@ private:
 
 	animation* lastAnim;
 public:
-	compositeAnimation();
-	compositeAnimation(unsigned int offset);
+	animationSequence();
+	animationSequence(unsigned int offset);
 	void add(animation* animationProvider, unsigned int lengthMs);
 	virtual transform* animate(int deltaTMs);
 };

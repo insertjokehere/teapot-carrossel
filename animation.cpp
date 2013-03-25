@@ -57,32 +57,32 @@ unsigned int animation::getAnimLength() {
 	return animLength;
 }
 
-//--class compositeAnimation
+//--class animationSequence
 
 
-compositeAnimation::compositeAnimation() {
+animationSequence::animationSequence() {
 	construct();
 }
 
-compositeAnimation::compositeAnimation(unsigned int offset) : animation(0, offset) {
+animationSequence::animationSequence(unsigned int offset) : animation(0, offset) {
 	construct();
 }
 
-void compositeAnimation::construct() {
+void animationSequence::construct() {
 	lastAnim = NULL;
 	this->offsets = new std::list<unsigned int>();
 	this->animations = new std::list<animation*>();
 }
 
-void compositeAnimation::add(animation* animationProvider, unsigned int lengthMs) {
+void animationSequence::add(animation* animationProvider, unsigned int lengthMs) {
 	offsets->insert(offsets->end(), getAnimLength());
 	animations->insert(animations->end(), animationProvider);
 
 	setAnimLength(getAnimLength() + lengthMs);
 }
 
-transform* compositeAnimation::animate(int deltaTMs) {
-	debug("compositeAnimation::animate()");
+transform* animationSequence::animate(int deltaTMs) {
+	debug("animationSequence::animate()");
 
 	std::list<unsigned int>::iterator times = offsets->begin();
 	std::list<animation*>::iterator anims = animations->begin();
