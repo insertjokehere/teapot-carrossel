@@ -41,9 +41,9 @@ platform::platformBody::platformBody(transform* constTransform, animation* anima
 		compositeTransform* lampTransform = new compositeTransform();
 		lampTransform->add(new rotate(90*i,0,1,0));
 		lampTransform->add(new translate(0,70.0,2));
-		lampTransform->add(new rotate(45,1,0,0));
-		add(new spotlamp(lampColours[i],lampColours[i],lampColours[i],lampColours[i],30.0,0.01,lampTransform, NULL));
-
+		lampTransform->add(new rotate(60,1,0,0));
+		add(new spotlamp(lampColours[i],lampColours[i],lampColours[i],lampColours[i],15.0,4.0,lampTransform, NULL));
+		
 		compositeTransform* teapotTransform = new compositeTransform();
 		teapotTransform->add(new translate(0,4,0));
 		teapotTransform->add(new rotate(90,0,1,0));

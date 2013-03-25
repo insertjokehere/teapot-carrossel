@@ -34,7 +34,7 @@ int previousTime = 0;
 int frameCount = 0;
 
 int numLights = 0;
-LIGHTID lights[] = {GL_LIGHT1, GL_LIGHT2, GL_LIGHT3, GL_LIGHT4, GL_LIGHT5, GL_LIGHT6, GL_LIGHT7}; //GL_LIGHT0 is reserved for global illumination
+LIGHTID lights[] = {GL_LIGHT2, GL_LIGHT3, GL_LIGHT4, GL_LIGHT5, GL_LIGHT6, GL_LIGHT7}; //GL_LIGHT0 is reserved for global illumination
 
 object* rootobject;
 
@@ -115,7 +115,7 @@ void initialize(void)
 
 }
 
-void calcFPS() { //from http://mycodelog.com/2010/04/16/fps/
+void calcFPS() { //from http://mycodelog.com/2010/04pos/16/fps/
   //  Increase frame count
   frameCount++;
 
@@ -153,7 +153,13 @@ void display(void)
 
   gluLookAt (cameraPosition[0],cameraPosition[1],cameraPosition[2],lookAt[0],lookAt[1],lookAt[2],0.0,1.0,0.0);
   
-  glLightfv(GL_LIGHT0, GL_POSITION, lgt_pos);
+  //glLightfv(GL_LIGHT0, GL_POSITION, lgt_pos);
+
+
+  float pos[] = {0.,50.,35.,1.};
+  float at[] = {0,0,55};
+  glLightfv(GL_LIGHT0, GL_POSITION, pos);
+  glLightfv(GL_LIGHT0,GL_SPOT_DIRECTION,at);
 
   glPushMatrix();
   rootobject->transformAndDraw();
