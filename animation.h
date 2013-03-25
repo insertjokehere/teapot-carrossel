@@ -62,6 +62,9 @@ public:
 	virtual transform* animate(int deltaTMs) { return NULL; };
 };
 
+/**
+ * A compound animation, plays a sequence of other animations
+ */
 class animationSequence: public animation {
 private:
 	std::list<unsigned int>* offsets;
@@ -71,12 +74,30 @@ private:
 
 	animation* lastAnim;
 public:
+	/**
+	 * Constructs a new animationSequence that will start from t=0
+	 */
 	animationSequence();
+
+	/**
+	 * Constructs a new animationSequence, offset at the given number of milliseconds into the loop
+	 */
 	animationSequence(unsigned int offset);
+
+	/**
+	 * Adds a new animation to the end of this sequence
+	 * @param animationProvider The animation to add
+	 * @param lengthMs          The number of milliseconds the animation should play for, before
+	 *                          the next animtion is played or the sequence loops if this is the
+	 *                          last animation in the sequence
+	 */
 	void add(animation* animationProvider, unsigned int lengthMs);
 	virtual transform* animate(int deltaTMs);
 };
 
+/**
+ * A 'dummy' animation that transforms the object it is attached to by a constant value
+ */
 class staticAnimation: public animation {
 private:
 	transform* constTransform;
@@ -85,6 +106,10 @@ public:
 	virtual transform* animate(int deltaTMs);
 };
 
+/**
+ * A 'dummy' animation that hides the object it is attached to by translating it through
+ * the floor plane
+ */
 class hideObject: public animation {
 public:
 	hideObject();
