@@ -25,13 +25,19 @@ using namespace std;
 
 GLUquadric *q = gluNewQuadric();
 
+//global light position
 float lgt_pos[] = {0.,50.,0.,1.};
+
+//free camera values
 float cameraPosition[] = {0, 50, 200};
 float lookAt[] = {0, 50, 0};
 
+//FPS counters
 int currentTime = 0;
 int previousTime = 0;
 int frameCount = 0;
+
+int cameraMode = CAMERA_MODE_FREE;
 
 int numLights = 0;
 LIGHTID lights[] = {GL_LIGHT2, GL_LIGHT3, GL_LIGHT4, GL_LIGHT5, GL_LIGHT6, GL_LIGHT7}; //GL_LIGHT0 is reserved for global illumination
@@ -72,6 +78,14 @@ LIGHTID reserveLight()  {
     numLights++;
     return light;
   }
+}
+
+int getCameraMode() {
+  return cameraMode;
+}
+
+void setCameraMode(int mode) {
+  cameraMode = mode;
 }
 
 object* buildScene(){
@@ -151,7 +165,9 @@ void display(void)
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
 
-  gluLookAt (cameraPosition[0],cameraPosition[1],cameraPosition[2],lookAt[0],lookAt[1],lookAt[2],0.0,1.0,0.0);
+  if (getCameraMode() == CAMERA_MODE_FREE) {
+    gluLookAt (cameraPosition[0],cameraPosition[1],cameraPosition[2],lookAt[0],lookAt[1],lookAt[2],0.0,1.0,0.0);
+  }
   
   //glLightfv(GL_LIGHT0, GL_POSITION, lgt_pos);
 
@@ -260,26 +276,61 @@ void glutSpecialCallback(int key, int x, int y) {
   switch (key) {
     case GLUT_KEY_UP:
     {
-      debug("GLUT_KEY_UP");
-      translatePoints(cameraPosition, lookAt, -5);
+      if (getCameraMode() == CAMERA_MODE_FREE) {
+        debug("GLUT_KEY_UP");
+        translatePoints(cameraPosition, lookAt, -5);
+      }
     }
     break;
     case GLUT_KEY_DOWN:
     {
-      debug("GLUT_KEY_DOWN");
-      translatePoints(cameraPosition, lookAt, 5);
+      if (getCameraMode() == CAMERA_MODE_FREE) {
+        debug("GLUT_KEY_DOWN");
+        translatePoints(cameraPosition, lookAt, 5);
+      }
     }
     break;
     case GLUT_KEY_LEFT:
     {
-      debug("GLUT_KEY_LEFT");
-      rotatePoint(cameraPosition, lookAt, -CAMERA_ROTATE_STEP);
+      if (getCameraMode() == CAMERA_MODE_FREE) {
+        debug("GLUT_KEY_LEFT");
+        rotatePoint(cameraPosition, lookAt, -CAMERA_ROTATE_STEP);
+      }
     }
     break;
     case GLUT_KEY_RIGHT:
     {
-      debug("GLUT_KEY_RIGHT");
-      rotatePoint(cameraPosition, lookAt, CAMERA_ROTATE_STEP);
+      if (getCameraMode() == CAMERA_MODE_FREE) {
+        debug("GLUT_KEY_RIGHT");
+        rotatePoint(cameraPosition, lookAt, CAMERA_ROTATE_STEP);
+      }
+    }
+    break;
+    /*case GLUT_KEY_HOME:
+    {
+      debug("GLUT_KEY_HOME");
+      if (getCameraMode() == CAMERA_MODE_FREE) {
+        setCameraMode(CAMERA_MODE_FIXED);
+      } else {
+        setCameraMode(CAMERA_MODE_FREE);
+      }
+    }
+    break;*/
+  }
+}
+
+void glutKeyboardCallback(unsigned char key, int x, int y) {
+  switch (key) {
+    case 'w':
+    case 'W':
+    {
+      lookAt[1] += 5;
+    }
+    break;
+    case 's': 
+    case 'S':
+    {
+      lookAt[1] -= 5;
     }
     break;
   }
@@ -302,6 +353,7 @@ int main(int argc, char** argv)
   glutDisplayFunc(display); 
   glutTimerFunc(ANIM_STEP_MSEC, glutTimerCallback, 0);
   glutSpecialFunc(glutSpecialCallback);
+  glutKeyboardFunc(glutKeyboardCallback);
 
   glutMainLoop();
   return 0;

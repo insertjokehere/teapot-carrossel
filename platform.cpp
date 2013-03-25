@@ -43,7 +43,7 @@ platform::platformBody::platformBody(transform* constTransform, animation* anima
 		lampTransform->add(new translate(0,70.0,2));
 		lampTransform->add(new rotate(60,1,0,0));
 		add(new spotlamp(lampColours[i],lampColours[i],lampColours[i],lampColours[i],15.0,4.0,lampTransform, NULL));
-		
+
 		compositeTransform* teapotTransform = new compositeTransform();
 		teapotTransform->add(new translate(0,4,0));
 		teapotTransform->add(new rotate(90,0,1,0));
@@ -68,6 +68,12 @@ platform::platformBody::platformBody(transform* constTransform, animation* anima
 	add(new gear(25,4,new rotate(-90,1,0,0),NULL));
 
 	
+}
+
+void platform::platformBody::drawSelf() {
+	if (getCameraMode() == CAMERA_MODE_FIXED) {
+		gluLookAt (0,50,200,0,50,0,0.0,1.0,0.0);
+	}
 }
 
 //--platformArm

@@ -30,6 +30,12 @@ static const unsigned short AXIS_X = 0x1;
 static const unsigned short AXIS_Y = 0x2;
 static const unsigned short AXIS_Z = 0x4;
 
+#define CAMERA_MODE_FREE 0
+#define CAMERA_MODE_FIXED 1
+
+int getCameraMode();
+void setCameraMode(int mode);
+
 #ifdef DEBUG_ALL
 #define DEBUG_TRACE
 #define DEBUG_FPS

@@ -13,6 +13,7 @@ private:
 	class platformBody: public objectgroup {
 	public:
 		platformBody(transform* constTransform, animation* animationProvider);
+		virtual void drawSelf();
 	};
 
 	class platformArm : public objectgroup {
