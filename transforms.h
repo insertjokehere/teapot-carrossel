@@ -6,8 +6,15 @@
 #include <list>
 #include <GL/glut.h>
 
+/**
+ * Base transform class other transforms should inherit from
+ */
 class transform {
 public:
+	/**
+	 * Apply the transform by calling the relevant methods (ie gl*)
+	 * Should be overridden by subclasses
+	 */
 	virtual void apply() {};
 };
 
