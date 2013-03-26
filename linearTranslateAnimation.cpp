@@ -9,7 +9,7 @@ linearTranslateAnimation::linearTranslateAnimation(float source[3], float target
 }
 
 transform* linearTranslateAnimation::animate(int deltaTMs) {
-	debug("linearTranslateAnimation::animate()");
+	//debug("linearTranslateAnimation::animate()");
 
 	float t = (float)getTotalMsElapsed() / (float)getAnimLength();
 	float position[3];
@@ -31,10 +31,10 @@ transform* linearTranslateAnimation::animate(int deltaTMs) {
 
 float linearTranslateAnimation::interpolate(float from, float to, float t) {
 	float i = from + ((to - from) * t);
-	debug("linearTranslateAnimation::interpolate()");
+	/*debug("linearTranslateAnimation::interpolate()");
 	debug(from);
 	debug(to);
 	debug(t);
-	debug(i);
+	debug(i);*/
 	return i;
 }

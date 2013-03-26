@@ -3,10 +3,10 @@
 //---class animation
 
 animation::animation() {
-	msElapsed = 0;
+	msElapsed = 0ul;
 	animationTransform = NULL;
-	animLength = 0;
-	offset = 0;
+	animLength = 0ul;
+	offset = 0ul;
 }
 
 animation::animation(unsigned long animLength, unsigned long offset){
@@ -60,7 +60,7 @@ unsigned int animation::getAnimLength() {
 //--class animationSequence
 
 
-animationSequence::animationSequence() {
+animationSequence::animationSequence() : animation() {
 	construct();
 }
 
@@ -92,12 +92,10 @@ transform* animationSequence::animate(int deltaTMs) {
 	unsigned int t = getTotalMsElapsed();
 
 	while (t > (*times) && times != offsets->end()) {
+		provider = (*anims);
 		times++;
 		anims++;
 	} 
-
-	anims--;
-	provider = (*anims);
 
 	if (provider != lastAnim) {
 		lastAnim = provider;
@@ -116,7 +114,7 @@ transform* animationSequence::animate(int deltaTMs) {
 
 //--class staticAnimation
 
-staticAnimation::staticAnimation(transform* constTransform) {
+staticAnimation::staticAnimation(transform* constTransform): animation() {
 	this->constTransform = constTransform;
 }
 
