@@ -13,9 +13,9 @@ furnace::furnaceTop::furnaceTop(transform* constTransform, animation* animationP
 	add(new cube(18,2,1.5, red, new translate(-9,20,-1.5), NULL)); //top guidebar
 
 	compositeTransform* chimneyTransform = new compositeTransform();
+	chimneyTransform->add(new translate(0,35,12));
 	chimneyTransform->add(new rotate(-90,AXIS_X));
-	chimneyTransform->add(new translate(0,35,-12));
-	add(new cylinder(4,12,false,grey,chimneyTransform,NULL));
+	add(new cylinder(4,12,false,white,chimneyTransform,NULL));
 	add(new particleEmitter(2000,5,40,grey,5000,0.25,new translate(0,47,12),NULL));
 
 	compositeTransform* lampTransform = new compositeTransform();
